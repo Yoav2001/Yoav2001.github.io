@@ -1,0 +1,98 @@
+canvas {
+    border: 1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+
+body {
+    background-image: url("../images/background.gif");
+    background-size: cover;
+}
+
+#left_choose {
+    position: relative;
+    left: 100px;
+    top: 500px;
+}
+
+#right_choose {
+    position: relative;
+    left: 800px;
+    top: 500px;
+}
+
+.imgfight {
+    width: 70px;
+    height: 70px;
+}
+
+
+/* 
+[class~=row] {
+    background-color: blanchedalmond;
+    width: 40px;
+    height: 200px;
+} */
+
+table {
+    position: relative;
+    direction: rtl;
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 1em;
+    background: #ddd;
+    border-bottom: 2px solid white;
+    width: 80px;
+
+}
+
+th[colspan~="3"] {
+    background-color: rgb(243, 82, 82);
+    font-size: 15px;
+}
+
+.img_mood {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+
+/* fsdfsdf */
+
+
+/* fsdfsdf */
+
+
+/* fsdfsdf */
+
+
+/* input css */
+
+input[type=text],
+select {
+    width: 65%;
+    padding: 5px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+div {
+    width: 20%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+#div_add_right {}

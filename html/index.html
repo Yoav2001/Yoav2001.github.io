@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootsrap rel  -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- rel my js and css -->
+   
+    <script src="../js/gamedemo.js"></script>
+     <script src="../js/game.js"></script>
+    <script src="../js/test.js"></script>
+
+    <link rel="stylesheet" href="../css/fightGame.css">
+
+    <!-- line for the web site -you dont need jquery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<script>
+    // function myFunction(mood) {
+    //     mood = true;
+    //     let is_Succeeded = false
+    //     let text;
+
+    //     let fight_left = prompt("Please enter your name -fighter one:", "");
+    //     let fight_right;
+    //     // two fighter mood
+    //     if (mood) {
+    //         fight_right = prompt("Please enter your name -fighter two:", "");
+    //     }
+
+    //     if ((fight_left == null || fight_left == "") || (mood && (fight_right == null || fight_right == ""))) {
+    //         text = "User cancelled the prompt.";
+
+    //     } else {
+    //         text = "let start the game ";
+    //         Succeeded = true;
+
+    //     }
+
+    //     alert(text);
+    //     return is_Succeeded;
+
+    // }
+
+    // myFunction()
+</script>
+
+<body>
+    <!-- <script>
+        document.addEventListener("keydown ", function(event) {
+            if (event.key = 'a') {
+                alert('fsdfsd');
+                console.log("Space was pressed! ");
+            }
+        });
+    </script> -->
+
+    <button type="button " onclick="computer_mood_click() ">
+         <img class="img_mood "  src="../images/mood/computer.png ">
+    </button>
+
+    <button onclick="vsTwo_mood_click() ">
+        <img class="img_mood "  src="../images/mood/vsfight.png ">
+   </button>
+   
+   <button onclick="start_over_click() ">
+    <img class="img_mood "  src="../images/startover.png ">
+</button>
+    <br>
+
+    <!-- טבלת צקרא -->
+
+    <table>
+        <tr>
+            <th colspan="3 "> Meue Bar</th>
+        </tr>
+        <tr>
+            <td>
+                <img src="../images/imagefight/stonegif.gif " width="48 " height="48 ">
+            </td>
+            <td>left</td>
+            <td>z</td>
+        </tr>
+        <tr>
+            <th> <img src="../images/imagefight/paper.png " width="48 " height="48 "></th>
+            <td>down</td>
+            <td>x</td>
+        </tr>
+        <tr>
+            <th> <img src="../images/imagefight/Scissors.gif "   width="48 " height="48 "></th>
+            <td>right</td>
+            <td>d</td>
+        </tr>
+
+    </table>
+    <br><br>
+    <!-- <div>
+
+        <table>
+
+            <tr>
+                <label for="fname "> Name Fighter Left</label>
+                <input type="text " id="name_left " name="firstname " placeholder="Your name.. ">
+                <button class="btn btn-danger ">add fighter to Left</button>
+            </tr>
+            <tr>
+                <label for="fname "> Name Fighter Right</label>
+                <input type="text " id="name_right " name="firstname " placeholder="Your name.. "><br><br>
+                <button class="btn btn-danger ">add fighter to right</button>
+            </tr>
+
+        </table>
+
+
+
+    </div> -->
+
+
+
+</body>
+
+</html>
