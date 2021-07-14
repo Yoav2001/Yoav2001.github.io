@@ -14,10 +14,9 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- rel my js and css -->
-   
+
     <script src="../js/gamedemo.js"></script>
-     <script src="../js/game.js"></script>
-    <script src="../js/test.js"></script>
+    <script src="../js/game.js"></script>
 
     <link rel="stylesheet" href="../css/fightGame.css">
 
@@ -65,16 +64,17 @@
         });
     </script> -->
 
-    <button type="button " onclick="computer_mood_click() ">
+
+    <button id="btn_computer" type="button " onclick="computer_mood_click() ">
          <img class="img_mood "  src="../images/mood/computer.png ">
     </button>
 
-    <button onclick="vsTwo_mood_click() ">
+    <button id="btn_vs_two" onclick="vsTwo_mood_click() ">
         <img class="img_mood "  src="../images/mood/vsfight.png ">
    </button>
-   
-   <button onclick="start_over_click() ">
-    <img class="img_mood "  src="../images/startover.png ">
+
+    <button id="btn_start_over" onclick="start_over_click() ">
+    <img  class="img_mood "  src="../images/startover.png ">
 </button>
     <br>
 
@@ -97,13 +97,22 @@
             <td>x</td>
         </tr>
         <tr>
-            <th> <img src="../images/imagefight/Scissors.gif "   width="48 " height="48 "></th>
+            <th> <img src="../images/imagefight/Scissors.gif " width="48 " height="48 "></th>
             <td>right</td>
             <td>d</td>
         </tr>
 
     </table>
     <br><br>
+
+
+    <p id="text_winner">
+
+    </p>
+    <img id="left_img_emoji">
+
+    <img id="right_img_emoji">
+
     <!-- <div>
 
         <table>
