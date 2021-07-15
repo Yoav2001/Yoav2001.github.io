@@ -47,7 +47,6 @@ td {
     background: #ddd;
     border-bottom: 2px solid white;
     width: 80px;
-
 }
 
 th[colspan~="3"] {
@@ -95,4 +94,73 @@ div {
     padding: 20px;
 }
 
-#div_add_right {}
+.emoji_left {
+    top: -100px;
+    left: 500px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    animation-name: emoji_mood;
+    animation-duration: 4s;
+    animation-iteration-count: 2;
+    animation-direction: alternate-reverse;
+    display: block;
+}
+
+.emoji_right {
+    top: -150px;
+    left: 1000px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    animation-name: emoji_mood;
+    animation-duration: 4s;
+    animation-iteration-count: 2;
+    animation-direction: alternate-reverse;
+    display: block;
+}
+
+@keyframes emoji_mood {
+    0% {
+        width: 15px;
+        height: 15px
+    }
+    50% {
+        width: 60px;
+        height: 60px
+    }
+    100% {
+        width: 15px;
+        height: 15px
+    }
+}
+
+.text_winner {
+    top: -200px;
+    left: 10px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    animation-name: text_winner_animate;
+    animation-duration: 4s;
+    animation-iteration-count: 2;
+    animation-direction: alternate-reverse;
+    display: block;
+}
+
+@keyframes text_winner_animate {
+    0% {
+        width: 15px;
+        height: 15px;
+        color: firebrick;
+    }
+    50% {
+        width: 60px;
+        height: 60px;
+        color: lavender;
+    }
+    100% {
+        width: 15px;
+        height: 15px
+    }
+}

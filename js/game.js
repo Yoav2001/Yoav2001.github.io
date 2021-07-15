@@ -27,7 +27,8 @@ let elem_right;
 let elem_name_winner;
 
 let name_winner
-    //שלב א 
+
+//שלב א 
 function start_over_click() {
     location.reload();
 }
@@ -103,6 +104,7 @@ function enter_detilasFighter() {
 // key bord for the game
 
 
+//LISTNER-בעת חיצה על המקלדת 
 
 window.addEventListener("keydown", function(event) {
 
@@ -224,12 +226,24 @@ function emoji_style_winner(id_left, src_left, id_right, src_right) {
     // elem_name_winner.innerHTML = result_game.winner.name;
     // elem_name_winner.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
     //link the css class
+    console.log("הגיע לפה")
     elem_left.className += " emoji_left";
     elem_right.className += " emoji_right";
 
     //
 
 }
+
+game_second_part(30, 30, 30, 30, stone_src, scissors_src, 0.7, 3);
+
+
+
+// let stone_src = "../images//imagefight/stoneEmoji.png";
+// let paper_src = "../images//imagefight/paperEmoji.png";
+// let scissors_src = "../images/imagefight/ScissorsEmoji.png";
+
+
+
 
 
 

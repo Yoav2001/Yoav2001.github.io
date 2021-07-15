@@ -3,21 +3,66 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootsrap rel  -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- rel my js and css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
         canvas {
+            position: relative;
+            left: 100px;
+            top: 100px;
             border: 1px solid #d3d3d3;
             background-color: #f1f1f1;
         }
+        
+        .grid_second {
+            left: 100;
+            top: 10;
+        }
+        
+        .btn_play_start {
+            left: 100;
+            top: 10;
+        }
     </style>
-    <script src="../js/gameCanvas.js"></script>
+    <script src="../js/gameCanvas.js" defer></script>
 
 </head>
+<!-- onload="startGame()" -->
 
-<body onload="startGame()">
-    <script>
-    </script>
+<body>
 
-    <p>Now there is an obstacle in our gaming area, but still nothing happens when the red square hits it.</p>
+    <button css="img_play_start">
+        click me
+    <img >
+    </button>
+    <label> Rounds</label>
+    <input id="elem_count_rounds">
+
+
+    <div id="menu_second_part  grid_second" class="container">
+        <div class="row">
+            <div class="col">
+                1 of 3
+            </div>
+            <div class="col-6">
+                2 of 3 (wider)
+            </div>
+            <div class="col">
+                3 of 3
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
