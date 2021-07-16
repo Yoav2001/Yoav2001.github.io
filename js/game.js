@@ -1,36 +1,46 @@
 let mood = false; //false=computer ,true=toghter
 let text_signUp; // sign up -טקסטס הודעה האם ההזנה של שמות המשתתפים למשחק הצליחה
-// import { game } from './gamedemo';
-// const game = require("./gamedemo"); //כאשר מחזיר את זה יש הקוד לא עובד תקין להתסלכ בf12
-let select_left_keybord = "";
-let select_right_keybord = "";
-let name_left;
-let name_right;
-let count_click_key_bord = 0;
+let select_left_keycode = -1;//key code  של השחקן השמאלי 
+let select_right_keycode = -1;// KEY CODE של השחקן הימיני
+let name_left; //שם השחקן השמאלי
+let name_right;//שם השחקן הימיני
+let count_click_key_bord = 0;// כמות הפעמים שלחצו על  המקלדת במהלך משחק אחד -כאשר שווה ל2 מחשב =מי ניצח 
 let is_signup_succeeded = false;
 let key_value; //key value of key enter on key bord 
 
 const arr_key_fight = [87, 83, 68, 74, 75, 76]; //     [87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
-let check_key_fight;
-let choose_many;
+let check_key_fight;// משתנה עם ערך בוליאני , אמת=המקש שלחצו במקלדת הוא חלק מהמקשים המותרת
 
 let rndInt; //random nuber for the computer mood
 
-let stone_src = "../images//imagefight/stoneEmoji.png";
-let paper_src = "../images//imagefight/paperEmoji.png";
-let scissors_src = "../images/imagefight/ScissorsEmoji.png";
+const stone_src = "../images//imagefight/stoneEmoji.png";
+const paper_src = "../images//imagefight/paperEmoji.png";
+const scissors_src = "../images/imagefight/ScissorsEmoji.png";
 const arr_src = [stone_src, paper_src, scissors_src];
-let i_left; //index of the code fight int the arr_src
-let i_right;
-let elem_left;
-let elem_right;
+let i_left; //index of the code fight left in the arr_src
+let i_right;//index of the code fight right in the arr_src
+let elem_left;//left html elemt  - emoji 
+let elem_right;//right html elemt  - emoji 
 let elem_name_winner;
 
 let name_winner
 
 //שלב א 
 function start_over_click() {
-    location.reload();
+    alert("fsdfsd")
+
+    mood=false;
+    text_signUp="";
+    select_left_keycode=-1;
+    select_right_keycode=-1;
+    name_left="";
+    name_right="";
+    count_click_key_bord=0;
+    is_signup_succeeded=false;
+    elem_left.style.visible =false
+    elem_right.style.visible=false;
+    
+    // location.reload();
 }
 // לחיצה על כפתור מצב נגד המחשב כלומר צריך לבקש רק פרטים של שם אחד 
 //נגד המחשב 
@@ -47,7 +57,7 @@ function computer_mood_click() {
     } else {
         name_right = "computer"
         rndInt = Math.floor(Math.random() * 3) + 3;
-        select_right_keybord = [rndInt - 2];
+        select_right_keycode = [rndInt - 2];
         count_click_key_bord = 1; //כאלו משהו לחץ
     }
 
@@ -116,20 +126,20 @@ window.addEventListener("keydown", function(event) {
         key_value = event.keyCode;
         arr_key_fight.map((currElement, index) => {
             if (key_value == currElement) {
-                if (index < 3 && select_left_keybord == "") {
-                    select_left_keybord = index + 1; //INDEX 0,1,2=בגלל זה מוסיף אחד
+                if (index < 3 && select_left_keycode == -1) {
+                    select_left_keycode = index + 1; //INDEX 0,1,2=בגלל זה מוסיף אחד
                     check_key_fight = true;
                     count_click_key_bord++;
                     // this.alert(count_click_key_bord)
-                } else if (index < 3 && select_left_keybord != "") {
+                } else if (index < 3 && select_left_keycode != -1) {
                     check_key_fight = false;
                 }
-                if (index > 2 && select_right_keybord == "") {
-                    select_right_keybord = index - 2; //index --3,4,5=-2=1,2,3
+                if (index > 2 && select_right_keycode == -1) {
+                    select_right_keycode = index - 2; //index --3,4,5=-2=1,2,3
                     check_key_fight = true;
                     count_click_key_bord++;
 
-                } else if (index > 2 && select_right_keybord != "") {
+                } else if (index > 2 && select_right_keycode != -1) {
                     check_key_fight = false;
                 }
 
@@ -145,7 +155,7 @@ window.addEventListener("keydown", function(event) {
 
 
     if (count_click_key_bord == 2) {
-        this.alert(`fighter one  ${name_left} : ${select_left_keybord}fighter two  ${name_right} : ${select_right_keybord}`)
+        this.alert(`fighter one  ${name_left} : ${select_left_keycode}fighter two  ${name_right} : ${select_right_keycode}`)
         fightClickCalck();
         alert("restart the game /go to fight ")
         count_click_key_bord++;
@@ -171,7 +181,7 @@ function fightClickCalck() {
     //     document.getElementById("output").appendChild(p);
     // }, true);
     alert(" הגיע לפה")
-    const res_game = game(name_left, select_left_keybord, name_right, select_right_keybord);
+    const res_game = game(name_left, select_left_keycode, name_right, select_right_keycode);
     let name_winner = res_game.winner.name;
     if (!res_game.is_teko)
         alert(` condtration ${res_game.winner.name} you Win!!!! you choose  `);
@@ -206,10 +216,11 @@ function fightClickCalck() {
 
 
 
-
+//function that get two img element and two src img
+// the fun link the src to the element ,add a css class animation to the img 
 function emoji_style_winner(id_left, src_left, id_right, src_right) {
 
-    // const result_game = game(name_left, select_left_keybord, nameright, select_right_keybord);
+    // const result_game = game(name_left, select_left_keycode, nameright, select_right_keycode);
     elem_left = document.getElementById(id_left);
     elem_right = document.getElementById(id_right);
     elem_name_winner = document.getElementById(text_winner);
@@ -226,7 +237,6 @@ function emoji_style_winner(id_left, src_left, id_right, src_right) {
     // elem_name_winner.innerHTML = result_game.winner.name;
     // elem_name_winner.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
     //link the css class
-    console.log("הגיע לפה")
     elem_left.className += " emoji_left";
     elem_right.className += " emoji_right";
 
@@ -300,56 +310,3 @@ game_second_part(30, 30, 30, 30, stone_src, scissors_src, 0.7, 3);
 
 
 
-
-// Initialize();
-
-// function Initialize() {
-//     preGameSound = new Sound("soundeffects/PreGame.mp3");
-//     shotSound = new Sound("soundeffects/GunShot.mp3");
-//     deathSound = new Sound("soundeffects/Death.mp3");
-//     myGameArea.start();
-//     gun1 = new Gun(80, 80, "images/YourGun.gif", canvasWidth * 0.1, canvasHeight / 2);
-//     gun2 = new Gun(80, 80, "images/AiGun.gif", canvasWidth * 0.9, canvasHeight / 2);
-//     leftBullets = [];
-//     rightBullets = [];
-// }
-
-
-
-// let myGameArea = {
-//     canvas: document.createElement("canvas"),
-
-//     start: function() {
-//         this.canvas.width = canvasWidth;
-//         this.canvas.height = canvasHeight;
-//         this.canvas.className = "game-block";
-//         this.canvas.id = "canvas-id"
-//         this.context = this.canvas.getContext('2d');
-//         this.pause = false;
-//         document.body.insertBefore(this.canvas, document.body.childNodes[4]);
-//         preGameSound.play();
-//         countDown = 5;
-//         this.keyMap = [];
-//         this.interval = setInterval(preGame, 1000);
-
-//         window.addEventListener('keydown', (e) => {
-//             if (!this.keyMap.includes(e.keyCode)) {
-//                 this.keyMap.push(e.keyCode);
-//             }
-//         })
-
-//         window.addEventListener('keyup', (e) => {
-//             if (this.keyMap.includes(e.keyCode)) {
-//                 this.keyMap.splice(this.keyMap.indexOf(e.keyCode), 1);
-//             }
-//         })
-//     },
-//     clear: function() {
-//         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-//     },
-//     stop: function() {
-//         clearInterval(gameInterval)
-//         clearInterval(aiInterval);
-//         this.pause = true;
-//     }
-// }
