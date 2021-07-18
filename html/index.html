@@ -16,7 +16,7 @@
     <!-- rel my js and css -->
 
     <script src="../js/gamedemo.js" defer></script>
-    <!-- <script src="../js/gameCanvas.js" defer></script> -->
+    <script src="../js/gameCanvas.js" defer></script>
     <script src="../js/game.js" defer></script>
 
 
@@ -66,17 +66,20 @@
         });
     </script> -->
 
+    <p id="title_fight">
+        welcome to yoav game
+    </p>
 
     <button id="btn_computer" type="button " onclick="computer_mood_click() ">
-         <img class="img_mood "  src="../images/mood/computer.png ">
-    </button>
-
-    <button id="btn_vs_two" onclick="vsTwo_mood_click() ">
-        <img class="img_mood "  src="../images/mood/vsfight.png ">
+        <img class="img_mood "  src="../images/mood/computer.png ">
    </button>
 
+    <button id="btn_vs_two" onclick="vsTwo_mood_click() ">
+       <img class="img_mood "  src="../images/mood/vsfight.png ">
+  </button>
+
     <button id="btn_start_over" onclick="start_over_click() ">
-    <img  class="img_mood "  src="../images/startover.png ">
+   <img  class="img_mood "  src="../images/startover.png ">
 </button>
     <br>
 
@@ -90,30 +93,41 @@
             <td>
                 <img src="../images/imagefight/stonegif.gif " width="48 " height="48 ">
             </td>
-            <td>left</td>
-            <td>z</td>
+            <td>j</td>
+            <td>w</td>
         </tr>
         <tr>
             <th> <img src="../images/imagefight/paper.png " width="48 " height="48 "></th>
-            <td>down</td>
-            <td>x</td>
+            <td>k</td>
+            <td>s</td>
         </tr>
         <tr>
             <th> <img src="../images/imagefight/Scissors.gif " width="48 " height="48 "></th>
-            <td>right</td>
+            <td>l</td>
             <td>d</td>
         </tr>
 
     </table>
+
     <br><br>
 
 
     <p id="text_winner">
 
     </p>
+
+
     <img id="left_img_emoji">
 
     <img id="right_img_emoji">
+
+
+
+
+
+
+    <span id="countDown" class="centerDisplay"></span>
+    <button id="startGame_text" class="centerDisplay" onclick="start_game_canvas()">Start Game</button>
 
     <!-- <div>
 

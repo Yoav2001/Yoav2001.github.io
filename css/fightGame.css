@@ -39,6 +39,7 @@ table {
     border-collapse: collapse;
     border-radius: 1em;
     overflow: hidden;
+    /* left: -450px; */
 }
 
 th,
@@ -94,6 +95,9 @@ div {
     padding: 20px;
 }
 
+
+/* emoji visible false */
+
 .emoji_left {
     top: -100px;
     left: 500px;
@@ -102,7 +106,7 @@ div {
     position: relative;
     animation-name: emoji_mood;
     animation-duration: 4s;
-    animation-iteration-count: 2;
+    animation-iteration-count: 1;
     animation-direction: alternate-reverse;
     display: block;
 }
@@ -136,31 +140,78 @@ div {
 }
 
 .text_winner {
-    top: -200px;
-    left: 10px;
-    width: 100px;
-    height: 100px;
     position: relative;
     animation-name: text_winner_animate;
     animation-duration: 4s;
-    animation-iteration-count: 2;
+    animation-iteration-count: 1;
     animation-direction: alternate-reverse;
     display: block;
+    left: 900px;
+    width: 100px;
+    font-size: 100px;
+    color: whitesmoke;
+    font-family: ui-rounded
 }
 
 @keyframes text_winner_animate {
     0% {
+        left: 400px;
         width: 15px;
         height: 15px;
         color: firebrick;
     }
-    50% {
+    25% {
         width: 60px;
-        height: 60px;
+        width: 15px;
+        height: 15px;
         color: lavender;
+    }
+    50% {
+        width: 15px;
+        height: 15px;
+        left: 400px;
+        color: firebrick;
     }
     100% {
         width: 15px;
-        height: 15px
+        height: 15px;
+        left: 800px;
+        color: lavender;
     }
+}
+
+#countDown {
+    visibility: collapse;
+}
+
+.centerDisplay {
+    height: 250px;
+    width: 250px;
+    background-image: linear-gradient(#8f0a0a, #a3a532);
+    color: white;
+    font-size: 75px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    position: absolute;
+    top: 150px;
+    right: 30px;
+}
+
+.show {
+    transition: opacity 400ms;
+    color: whitesmoke;
+}
+
+.hide {
+    opacity: 0;
 }

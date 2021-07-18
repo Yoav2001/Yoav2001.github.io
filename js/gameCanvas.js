@@ -13,8 +13,7 @@
 
 
 function game_second_part(left_comp_width, left_comp_height, right_comp_width, right_comp_height, img_src_left, img_src_right, velocity_comp, count_comp_crash) {
-    alert("dfdsfsd")
-    console.log(left_comp_width);
+    // console.log(left_comp_width);
     const image_left = new Image();
     image_left.src = img_src_left;
     const image_right = new Image();
@@ -26,8 +25,8 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
     const right_piece_height = right_comp_height;
 
 
-    const canvasWidth = window.innerWidth * 0.75;
-    const canvasHeight = window.innerHeight * 0.75;
+    const canvasWidth = window.innerWidth * 0.65;
+    const canvasHeight = window.innerHeight * 0.65;
 
 
     const x_left_start = canvasWidth * 0.1;
@@ -275,8 +274,8 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
     function isMoveable(x_comp, y_comp, width_comp, height_comp) {
         x_comp = parseInt(x_comp);
         y_comp = parseInt(y_comp);
-        console.log(`the comp ${0} +the cmnavas {}`)
-        console.log((" " + x_comp + width_comp))
+        // console.log(`the comp ${0} +the cmnavas {}`)
+        // console.log((" " + x_comp + width_comp))
         return (x_comp == 0 || y_comp == 0 || (x_comp + width_comp) == parseInt(canvasWidth) || (y_comp + height_comp) == parseInt(canvasHeight));
     }
 
