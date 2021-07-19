@@ -1,4 +1,3 @@
-let mood = false; //false=computer ,true=toghter
 let select_left_keycode = -1; //key code  של השחקן השמאלי 
 let select_right_keycode = -1; // KEY CODE של השחקן הימיני
 let name_left; //שם השחקן השמאלי
@@ -22,25 +21,26 @@ let elem_left; //left html elemt  - emoji
 let elem_right; //right html elemt  - emoji 
 let elem_name_winner;
 
-let countDown = 4;
+let countDown = 5;
 //שלב א 
 function start_over_click() {
-    alert("fsdfsd")
 
-    mood = false;
-    select_left_keycode = -1;
-    select_right_keycode = -1;
-    name_left = "";
-    name_right = "";
+    // // mood = false;
+    // select_left_keycode = -1;
+    // select_right_keycode = -1;
+    // name_left = "";
+    // name_right = "";
 
-    document.getElementById("div_emoji").visible = false;
+    // document.getElementById("div_emoji").visible = false;
 
 
-    count_click_key_bord = 0;
-    is_signup_succeeded = false;
-    elem_left.style.visible = false
-    elem_right.style.visible = false;
+    // count_click_key_bord = 0;
+    // is_signup_succeeded = false;
+    // elem_left.style.visible = false
+    // elem_right.style.visible = false;
 
+    const canvas_game = document.getElementsByTagName("canvas");
+    canvas_game.className = "canvas_none";
 
 
     // location.reload();
@@ -50,10 +50,9 @@ function start_over_click() {
 function computer_mood_click() {
 
 
-    alert("mood computer")
-    mood = false; //מגדיר למקרה שיבחרו אחד נגד השני ואז ישנו את הבחירה
+    // mood = false; //מגדיר למקרה שיבחרו אחד נגד השני ואז ישנו את הבחירה
 
-    enter_detilasFighter();
+    enter_detilasFighter(false);
 
     if (!is_signup_succeeded) {
         return alert("error pleade refresh the page ")
@@ -72,11 +71,9 @@ function computer_mood_click() {
 
 // זוג -אחד נגד השני 
 function vsTwo_mood_click() {
-    alert("mood vs ")
 
-    mood = true;
-    enter_detilasFighter();
-    alert(name_left + " " + name_right + "  ")
+    // mood = true;
+    enter_detilasFighter(true);
     count_click_key_bord = 0;
 
 }
@@ -84,25 +81,41 @@ function vsTwo_mood_click() {
 // םעולה המקלבת את מצב המשחק נגד המחשב או אחג נגד השני
 // לפי מצב המשחק יודעת אם לבקש שם אחד או שנייים
 // או ולידציה פשוטה אם הזינו שם 
-function enter_detilasFighter() {
+function enter_detilasFighter(mood) {
     let text_signUp; // sign up -טקסטס הודעה האם ההזנה של שמות המשתתפים למשחק הצליחה
     name_left = prompt("Please enter your name -fighter one:", "");
     name_right = "";
     // two fighter mood
+
+    while ((name_left == null || name_left == "")) {
+        name_left = prompt("Please enter your name -fighter one:", "");
+
+    }
+
     if (mood) {
-        name_right = prompt("Please enter your name -fighter two:", "");
-    }
-
-    if ((name_left == null || name_left == "") || (mood && (name_right == null || name_right == ""))) {
-        text_signUp = "User cancelled the prompt.";
-        is_signup_succeeded = false;
-
-    } else {
-        text_signUp = "let start the game ";
-        is_signup_succeeded = true;
-
+        while ((name_right == null || name_right == "")) {
+            name_right = prompt("Please enter your name -fighter two:", "");
+        }
 
     }
+
+    // if ((name_left == null || name_left == "") || (mood && (name_right == null || name_right == ""))) {
+    //     text_signUp = "User cancelled the prompt.";
+    //     is_signup_succeeded = false;
+
+    // } 
+    let btn_mood_computer = document.getElementById("btn_computer");
+    btn_mood_computer.disabled = true;
+    let btn_mood_vs = document.getElementById("btn_vs_two");
+    btn_mood_vs.disabled = true;
+
+
+
+    text_signUp = "let start the game ";
+    is_signup_succeeded = true;
+
+
+
 
 
     alert(text_signUp);
@@ -157,9 +170,9 @@ window.addEventListener("keydown", function(event) {
 
 
     if (count_click_key_bord == 2) {
-        this.alert(`fighter one  ${name_left} : ${select_left_keycode}fighter two  ${name_right} : ${select_right_keycode}`)
+        // this.alert(`fighter one  ${name_left} : ${select_left_keycode}fighter two  ${name_right} : ${select_right_keycode}`)
         fightClickCalck();
-        alert("restart the game /go to fight ")
+        // alert("restart the game /go to fight ")
         count_click_key_bord++;
 
 
@@ -182,12 +195,12 @@ function fightClickCalck() {
     // }, true);
     const res_game = game(name_left, select_left_keycode, name_right, select_right_keycode);
     let name_winner = res_game.winner.name;
-    if (!res_game.is_teko)
-        alert(` condtration ${res_game.winner.name} you Win!!!! you choose  `);
+    // if (!res_game.is_teko)
+    //     alert(` condtration ${res_game.winner.name} you Win!!!! you choose  `);
 
 
-    else
-        alert("teko")
+    // else
+    //     alert("teko")
 
 
 
@@ -225,28 +238,40 @@ function emoji_style_winner(id_left, src_left, id_right, src_right, namewinner) 
     elem_right = document.getElementById(id_right);
     elem_name_winner = document.getElementById("title_fight");
 
+    //text winner
+    if (namewinner == "teko")
+        elem_name_winner = `${namewinner} `;
+    else
+        elem_name_winner.innerHTML = `${namewinner} winner `;
 
-    //display
-    // elem_left.style.display = "block";
-    // elem_left.style.display = "block"
+    elem_name_winner.classList.add('text_winner');
+    elem_name_winner.classList.remove('hide');
+    elem_name_winner.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
+
+
 
     //src the photo
     elem_left.src = src_left;
     elem_right.src = src_right;
 
-    elem_name_winner.innerHTML = `${namewinner} you are the winner`;
-    // elem_name_winner.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
     //link the css class
-    elem_name_winner.classList.add('text_winner');
-    elem_name_winner.classList.remove('hide');
+
     elem_left.className += " emoji_left";
     elem_right.className += " emoji_right";
 
-    //
+    let count_down_div = document.getElementById("div_count_down");
 
+    setInterval(() => {
+        count_down_div.className = "count_down_block";
+    }, 4000);
+
+    //display
+    // elem_left.style.display = "block";
+    // elem_left.style.display = "block"
 }
 
 function start_game_canvas() {
+
 
     elem_left.className = "emoji_display_none";
     elem_right.className = "emoji_display_none";
@@ -264,7 +289,7 @@ function count_down_circle() {
         document.getElementById("startGame_text").style.visibility = "visible";
     } else if (countDown == 0) {
         document.getElementById("startGame_text").innerHTML = "GO!";
-        game_second_part(30, 30, 30, 30, elem_left.src, elem_right.src, 1.2, 3);
+        game_second_part(30, 30, 30, 30, elem_left.src, elem_right.src, 1.2, 3, "title_fight");
 
     } else {
         document.getElementById("startGame_text").style.visibility = "collapse";
@@ -276,67 +301,3 @@ function count_down_circle() {
     countDown--;
 
 }
-
-
-
-
-
-
-
-// let stone_src = "../images//imagefight/stoneEmoji.png";
-// let paper_src = "../images//imagefight/paperEmoji.png";
-// let scissors_src = "../images/imagefight/ScissorsEmoji.png";
-
-
-
-
-
-
-// נדב אמר שיכול להתמש מתי שבא לי ב ארור פאןקיישטן -כלומר עם 
-// =>
-// עדיף להתשמש בשיטה אחת 
-// עדיף לא להתשמש בthis  אלה ליצור כבר מחלקה
-
-
-
-
-
-
-
-
-
-
-// לבנתיים אני עושה רק על אבן 
-// כל הלחיצות על אבן נייר או מספריים אמורות הלגיע לפה
-// function fightClick() {
-//     console.log("asasda")
-//     let right_stone_isclick = false;
-//     let right_paper_isclick = false;
-//     let right_Scissors_isclick = false;
-
-//     document.getElementById('rightStone').addEventListener("click", function() {
-//         right_stone_isclick = true;
-//         alert(right_stone_isclick);
-//     }​);​
-
-//     document.getElementById('rightPaper').addEventListener("click", function() {
-//         right_paper_isclick = true
-//     }​);​
-//     document.getElementById('rightScissors').addEventListener("click", function() {
-//         right_Scissors_isclick = true
-//     }​);​
-
-
-
-
-
-
-
-//דוגמא של 'קוד שליו
-
-
-
-// // always checking if the element is clicked, if so, do alert('hello')
-// paper.addEventListener("click", () => {
-//     alert('hello');
-// });

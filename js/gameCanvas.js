@@ -12,7 +12,7 @@
 //מגדיר את שני המשתנים של האבן /נייר/ מספריים
 
 
-function game_second_part(left_comp_width, left_comp_height, right_comp_width, right_comp_height, img_src_left, img_src_right, velocity_comp, count_comp_crash) {
+function game_second_part(left_comp_width, left_comp_height, right_comp_width, right_comp_height, img_src_left, img_src_right, velocity_comp, count_comp_crash, id_ele_round) {
     // console.log(left_comp_width);
     const image_left = new Image();
     image_left.src = img_src_left;
@@ -180,7 +180,8 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
     // הפעולה בודקת :אם יש מפגש בין 2 הצורות מפסיקה את המספקה ואת הפעולה 
     // אחרת מנקרה את המצב הקודם ומעדכנת את מיקום האובייקטים(בתנאי שלא הגיעו לגבולות)
     function updateGameArea() {
-
+        let ele = document.getElementById(toString(id_ele_round));
+        // ele.innerHTML = count_crash;
 
         //מאפס את המהירות שלא ימשיך לגלוש   גם אחרי שעוזב את המקש
         myGamePiece_right.speedX = 0;
@@ -188,10 +189,8 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
         myGamePiece_left.speedY = 0;
         myGamePiece_left.speedX = 0;
 
-        console.log(count_crash)
         if (count_crash == 0) {
             myGameArea.stop();
-
             return;
 
         }
@@ -261,6 +260,7 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
             is_crash = false;
 
         }
+
         // alert(myGamePiece_right.x);
 
 
