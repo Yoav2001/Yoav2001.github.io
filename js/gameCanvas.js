@@ -48,7 +48,7 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
             this.canvas.width = canvasWidth;
             this.canvas.height = canvasHeight;
             this.context = this.canvas.getContext("2d");
-            console.log(document);
+
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.interval = setInterval(updateGameArea, 1);
             this.keyMap = [];
@@ -191,6 +191,8 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
 
         if (count_crash == 0) {
             myGameArea.stop();
+            // document.removeChild(myGameArea.canvas)
+            // myGameArea.context.clearRect(0, 0, canvasWidth, canvasHeight);
             return;
 
         }

@@ -140,9 +140,13 @@ input[type=submit]:hover {
     }
 }
 
-.emoji_display_none {
+.emoji_display_startCanvas {
     width: 100px;
     height: 100px
+}
+
+.display_none {
+    display: none;
 }
 
 .text_winner {

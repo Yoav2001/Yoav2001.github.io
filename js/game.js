@@ -20,30 +20,70 @@ let i_right; //index of the code fight right in the arr_src
 let elem_left; //left html elemt  - emoji 
 let elem_right; //right html elemt  - emoji 
 let elem_name_winner;
-
 let countDown = 5;
+
+let interval_countdown;
 //שלב א 
 function start_over_click() {
 
-    // // mood = false;
-    // select_left_keycode = -1;
-    // select_right_keycode = -1;
-    // name_left = "";
-    // name_right = "";
+    select_left_keycode = -1;
+    select_right_keycode = -1;
+    name_left = "";
+    name_right = "";
+    is_signup_succeeded = false;
+    count_click_key_bord = 0;
+
+
+    clear_elment();
 
     // document.getElementById("div_emoji").visible = false;
 
-
-    // count_click_key_bord = 0;
-    // is_signup_succeeded = false;
     // elem_left.style.visible = false
     // elem_right.style.visible = false;
 
-    const canvas_game = document.getElementsByTagName("canvas");
-    canvas_game.className = "canvas_none";
+
+    // const canvas_game = document.getElementsByTagName(".canvas");
+    // // canvas_game.className = "canvas_none";
+
+    // canvas_game.style.visibility = "collapse";
+
 
 
     // location.reload();
+}
+
+
+function clear_elment() {
+
+
+    let emoji_l = document.getElementById("left_img_emoji");
+    let emoji_r = document.getElementById("right_img_emoji");
+    let txt_winner = document.getElementById("title_fight");
+    let div_count_down = document.getElementById("div_count_down");
+
+    emoji_l.className = "display_none";
+    emoji_r.className = "display_none";
+    emoji_l.src = "";
+    emoji_r.src = "";
+    txt_winner.className = "display_none"
+
+    div_count_down.className = "display_none";
+
+
+    let btn_mood_computer = document.getElementById("btn_computer");
+    btn_mood_computer.disabled = false;
+    let btn_mood_vs = document.getElementById("btn_vs_two");
+    btn_mood_vs.disabled = false;
+
+    document.body.childNodes[0].remove(); // canvas.className = "display_none";
+
+    countDown = 5;
+
+    // elem_left.className = "emoji_display_none";
+    // elem_right.className = "emoji_display_none";
+    // elem_left.src = "";
+    // elem_left.src = "";
+
 }
 // לחיצה על כפתור מצב נגד המחשב כלומר צריך לבקש רק פרטים של שם אחד 
 //נגד המחשב 
@@ -221,7 +261,8 @@ function fightClickCalck() {
     console.log(name_winner)
     emoji_style_winner("left_img_emoji", arr_src[i_left], "right_img_emoji", arr_src[i_right], name_winner)
 
-
+    document.getElementById("countDown").style.visibility = "visible";
+    document.getElementById("startGame_text").style.visibility = "visible";
 }
 
 
@@ -232,21 +273,23 @@ function fightClickCalck() {
 //function that get two img element and two src img
 // the fun link the src to the element ,add a css class animation to the img 
 function emoji_style_winner(id_left, src_left, id_right, src_right, namewinner) {
+    debugger;
 
     // const result_game = game(name_left, select_left_keycode, nameright, select_right_keycode);
     elem_left = document.getElementById(id_left);
     elem_right = document.getElementById(id_right);
     elem_name_winner = document.getElementById("title_fight");
 
+    // elem_name_winner.classList.add('text_winner');
+    elem_name_winner.classList.remove('display_none');
+    elem_name_winner.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
     //text winner
     if (namewinner == "teko")
-        elem_name_winner = `${namewinner} `;
+        elem_name_winner.innerHTML = `${namewinner} `;
     else
         elem_name_winner.innerHTML = `${namewinner} winner `;
 
-    elem_name_winner.classList.add('text_winner');
-    elem_name_winner.classList.remove('hide');
-    elem_name_winner.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
+
 
 
 
@@ -255,15 +298,17 @@ function emoji_style_winner(id_left, src_left, id_right, src_right, namewinner) 
     elem_right.src = src_right;
 
     //link the css class
-
+    elem_left.classList.remove("display_none");
+    elem_right.classList.remove("display_none");
     elem_left.className += " emoji_left";
     elem_right.className += " emoji_right";
 
     let count_down_div = document.getElementById("div_count_down");
+    // document.getElementById("div_count_down").style.visibility = "visible";
 
-    setInterval(() => {
-        count_down_div.className = "count_down_block";
-    }, 4000);
+    count_down_div.className = "count_down_block";
+    document.getElementById("startGame_text").style.visibility = "visible";
+
 
     //display
     // elem_left.style.display = "block";
@@ -273,17 +318,17 @@ function emoji_style_winner(id_left, src_left, id_right, src_right, namewinner) 
 function start_game_canvas() {
 
 
-    elem_left.className = "emoji_display_none";
-    elem_right.className = "emoji_display_none";
-    setInterval(count_down_circle, 1000);
+    elem_left.className = "emoji_display_startCanvas";
+    elem_right.className = "emoji_display_startCanvas";
+
+
+
+    interval_countdown = setInterval(count_down_circle, 1000);
 
 }
 
 function count_down_circle() {
-    if (countDown == 5) {
 
-
-    }
     if (countDown > 0) {
         document.getElementById("startGame_text").innerText = countDown;
         document.getElementById("startGame_text").style.visibility = "visible";
@@ -292,11 +337,13 @@ function count_down_circle() {
         game_second_part(30, 30, 30, 30, elem_left.src, elem_right.src, 1.2, 3, "title_fight");
 
     } else {
+        clearInterval(interval_countdown)
         document.getElementById("startGame_text").style.visibility = "collapse";
-        clearInterval(interval)
-            // clearInterval(myGameArea.interval);
-            // gameInterval = setInterval(updateGameArea, 20);
-            // aiInterval = setInterval(aiMovement, 650);
+
+
+        // clearInterval(myGameArea.interval);
+        // gameInterval = setInterval(updateGameArea, 20);
+        // aiInterval = setInterval(aiMovement, 650);
     }
     countDown--;
 
