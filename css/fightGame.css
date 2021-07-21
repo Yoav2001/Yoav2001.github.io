@@ -262,3 +262,15 @@ canvas {
 .canvas_none {
     display: none;
 }
+
+.img_key_bord_left {
+    width: 130px;
+    height: 100px;
+    display: block;
+}
+
+.img_key_bord_right {
+    width: 130px;
+    height: 100px;
+    display: block;
+}

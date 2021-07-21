@@ -48,7 +48,7 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
             this.canvas.width = canvasWidth;
             this.canvas.height = canvasHeight;
             this.context = this.canvas.getContext("2d");
-
+            // this.context.drawImage(image_left, 200, 200, 200, 200)
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.interval = setInterval(updateGameArea, 1);
             this.keyMap = [];
