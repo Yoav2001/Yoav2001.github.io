@@ -1,19 +1,9 @@
-// let stone_src = "../images//imagefight/stoneEmoji.png";
-// let paper_src = "../images//imagefight/paperEmoji.png";
-// let scissors_src = "../images/imagefight/ScissorsEmoji.png";
+//game_second_part(...)
+//function that create a canvas game with 2 component
+// GET function : paremter for the canvas view and for the component settings
+// count crash -how many crash untul the game over 
 
-
-
-// game_second_part(30, 30, 30, 30, stone_src, scissors_src, 0.7, 3);
-
-
-// let mySound;
-//strat game 
-//מגדיר את שני המשתנים של האבן /נייר/ מספריים
-
-
-function game_second_part(left_comp_width, left_comp_height, right_comp_width, right_comp_height, img_src_left, img_src_right, velocity_comp, count_comp_crash, id_ele_round) {
-    // console.log(left_comp_width);
+function game_second_part(left_comp_width, left_comp_height, right_comp_width, right_comp_height, img_src_left, img_src_right, velocity_comp, count_comp_crash) {
     const image_left = new Image();
     image_left.src = img_src_left;
     const image_right = new Image();
@@ -24,10 +14,8 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
     const right_piece_width = right_comp_width;
     const right_piece_height = right_comp_height;
 
-
     const canvasWidth = window.innerWidth * 0.65;
     const canvasHeight = window.innerHeight * 0.65;
-
 
     const x_left_start = canvasWidth * 0.1;
     const y_left_start = canvasHeight / 2;
@@ -35,20 +23,22 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
     const x_right_start = canvasWidth * 0.9;
     const y_right_start = canvasHeight / 2;
 
-    let myGamePiece_left;
-    let myGamePiece_right;
+    const myGamePiece_left = new component(left_piece_width, left_piece_height, true, x_left_start, y_left_start, "red");
+    const myGamePiece_right = new component(right_piece_width, right_piece_height, false, x_right_start, y_right_start, "green");
     const velocity = velocity_comp;
-    // const count_crash = parseInt(document.getElementById("elem_count_rounds"));
-    let count_crash = count_comp_crash;
-    let is_crash = false; //crash with canvs/each other
+
+    const crash_parameters = { count: count_comp_crash, is_crash: false }; //crash with canvs/each other
+
 
     const myGameArea = {
+
         canvas: document.createElement("canvas"),
         start: function() { //קורה פעם אחת בהתחלת המשחק
             this.canvas.width = canvasWidth;
             this.canvas.height = canvasHeight;
             this.context = this.canvas.getContext("2d");
-            // this.context.drawImage(image_left, 200, 200, 200, 200)
+
+
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.interval = setInterval(updateGameArea, 1);
             this.keyMap = [];
@@ -78,19 +68,9 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
     }
 
     function startGame() {
-        // canvasWidth * 0.1, canvasHeight / 2
-        myGamePiece_left = new component(left_piece_width, left_piece_height, true, x_left_start, y_left_start, "red");
-        myGamePiece_right = new component(right_piece_width, right_piece_height, false, x_right_start, y_right_start, "green");
-        // mySound = new sound("../sounds/JavaScript_SoundEffects_Death.mp3");
-        // mySound.play();
-
         myGameArea.start();
-
     }
     startGame();
-
-
-
 
     function restart_round() {
 
@@ -98,9 +78,6 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
         myGamePiece_left.y = y_left_start;
         myGamePiece_left.speedX = 0;
         myGamePiece_left.speedY - 0;
-
-
-
 
         myGamePiece_right.x = x_right_start;
         myGamePiece_right.y = y_right_start;
@@ -113,22 +90,6 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
 
     }
 
-    function restart_game() {
-
-
-    }
-
-
-
-    // function make_base(src_img) {
-    //     base_image = new Image();
-    //     base_image.src = src_img;
-    //     base_image.onload = function() {
-    //         context.drawImage(base_image, 0, 0);
-    //     }
-    // }
-
-
     function component(width, height, isLeft, x, y, color) {
         this.width = width;
         this.height = height;
@@ -136,8 +97,6 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
         this.speedY = 0;
         this.x = x;
         this.y = y;
-
-        // make_base(img_src);
         this.update = function() {
             ctx = myGameArea.context;
             ctx.fillStyle = color;
@@ -148,7 +107,6 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
             } else {
                 myGameArea.context.drawImage(image_right, this.x, this.y, this.width, this.height);
             }
-
         }
         this.newPos = function() {
             this.x += this.speedX;
@@ -180,8 +138,6 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
     // הפעולה בודקת :אם יש מפגש בין 2 הצורות מפסיקה את המספקה ואת הפעולה 
     // אחרת מנקרה את המצב הקודם ומעדכנת את מיקום האובייקטים(בתנאי שלא הגיעו לגבולות)
     function updateGameArea() {
-        let ele = document.getElementById(toString(id_ele_round));
-        // ele.innerHTML = count_crash;
 
         //מאפס את המהירות שלא ימשיך לגלוש   גם אחרי שעוזב את המקש
         myGamePiece_right.speedX = 0;
@@ -189,23 +145,16 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
         myGamePiece_left.speedY = 0;
         myGamePiece_left.speedX = 0;
 
-        if (count_crash == 0) {
+        if (crash_parameters.count == 0) {
             myGameArea.stop();
-            // document.removeChild(myGameArea.canvas)
-            // myGameArea.context.clearRect(0, 0, canvasWidth, canvasHeight);
             return;
-
         }
         if (myGamePiece_left.crashWith(myGamePiece_right)) {
-            // mySound.play();
-            is_crash = true;
+            crash_parameters.is_crash = true;
 
         } else {
             myGameArea.clear(); //חייב שהמיקום הקודם של האובייקטים ימחק 
-
             if (!isMoveable(myGamePiece_right.x, myGamePiece_right.y, myGamePiece_right.width, myGamePiece_right.height)) {
-
-
                 //left
                 if (key(37)) {
                     myGamePiece_right.speedX = -velocity;
@@ -224,7 +173,7 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
                 }
 
             } else {
-                is_crash = true;
+                crash_parameters.is_crash = true;
 
             }
 
@@ -243,7 +192,7 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
                 }
 
             } else {
-                is_crash = true;
+                crash_parameters.is_crash = true;
             }
 
             myGamePiece_right.newPos();
@@ -254,22 +203,13 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
 
         }
 
-
-        if (is_crash) {
+        if (crash_parameters.is_crash) {
             myGameArea.stop();
             restart_round();
-            count_crash--;
-            is_crash = false;
+            crash_parameters.count--;
+            crash_parameters.is_crash = false;
 
         }
-
-        // alert(myGamePiece_right.x);
-
-
-
-        // למטה ימינה לחא עובד
-
-
 
     }
 
