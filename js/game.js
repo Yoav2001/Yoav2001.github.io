@@ -176,9 +176,6 @@ function is_key_code_correct(key_value, currElement, index) {
         }
 
     }
-
-
-
 }
 
 
