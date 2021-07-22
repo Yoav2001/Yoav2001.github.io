@@ -38,17 +38,26 @@ function game(nameleft, codeleft, nameright, coderight) {
         result.is_teko = true;
         result.winner.chooseCode = codeleft; //זה לא משנה יכלתי להשוות לימיני
     }
+
+
     if (codeleft == 1 && coderight == 2) {
         result.winner = player_right;
         result.loser = player_left;
         result.sideWin = "right";
+
     }
+
+
+
 
     if (codeleft == 1 && coderight == 3) {
         result.winner = player_left;
         result.loser = player_right;
         result.sideWin = "left";
+
+
     }
+
 
     if (codeleft == 2 && coderight == 1) {
 
@@ -58,12 +67,20 @@ function game(nameleft, codeleft, nameright, coderight) {
 
     }
 
+
+
+
     if (codeleft == 2 && coderight == 3) {
 
         result.winner = player_right;
         result.loser = player_left;
         result.sideWin = "right";
+
+
     }
+
+
+
 
     if (codeleft == 3 && coderight == 1) {
 
@@ -73,6 +90,10 @@ function game(nameleft, codeleft, nameright, coderight) {
         result.sideWin = "right";
 
     }
+
+
+
+
 
     if (codeleft == 3 && coderight == 2) {
 

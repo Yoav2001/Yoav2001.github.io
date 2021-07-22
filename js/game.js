@@ -1,4 +1,4 @@
-//  אובייקט של פרמטרים של המשחק :שם של שחקן בצד שמאל/ימין +הבחירה  שלו  ,האם ההרשמה של השחקנים למשחק הצליחה
+//אובייקט של פרמטרים של המשחק :שם של שחקן בצד שמאל/ימין +הבחירה  שלו  ,האם ההרשמה של השחקנים למשחק הצליחה
 //key code = הערך של הלחצן במקלדת שנלחץ
 // המשתנה האחרון באובייקט הזה count click keybord - הוא כמות הפעמים שלחצו על המקלדת במהלך משחק בודד בחלק הראשון (מקסימום 1 כל צד )
 //count_click_key_bord = 0  כמות הפעמים שלחצו על  המקלדת במהלך משחק אחד -כאשר שווה ל2 מחשב =מי ניצח
@@ -176,6 +176,9 @@ function is_key_code_correct(key_value, currElement, index) {
         }
 
     }
+
+
+
 }
 
 
@@ -209,11 +212,32 @@ function emoji_style_winner(src_left, src_right, namewinner) {
     elem_name_winner.classList.remove('display_none');
     elem_name_winner.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
     //text winner
-    if (namewinner == "teko")
+    if (namewinner === "teko"){
+
         elem_name_winner.innerHTML = `${namewinner} `;
+        
+    }
+        
+
     if (!game_state_parameters.is_vs_mood) {
         elem_name_winner.innerHTML = `${namewinner} winner `;
-    } else {
+        
+    } 
+
+
+     //src the photo
+     elem_left.src = src_left;
+     elem_right.src = src_right;
+ 
+     //link the css class
+     elem_left.classList.remove("display_none");
+     elem_right.classList.remove("display_none");
+     elem_left.className += " emoji_left";
+     elem_right.className += " emoji_right";
+ 
+    if(namewinner!="teko"&&game_state_parameters.is_vs_mood){
+
+
         elem_name_winner.innerHTML = `${namewinner} winner `;
         //count down for start cnavas
         div_count_down.className = "count_down_block";
@@ -224,18 +248,12 @@ function emoji_style_winner(src_left, src_right, namewinner) {
 
         img_keybord_right.classList.remove("display_none");
         img_keybord_right.classList.add("img_key_bord_right");
+    
+
     }
-
-    //src the photo
-    elem_left.src = src_left;
-    elem_right.src = src_right;
-
-    //link the css class
-    elem_left.classList.remove("display_none");
-    elem_right.classList.remove("display_none");
-    elem_left.className += " emoji_left";
-    elem_right.className += " emoji_right";
+        
 }
+   
 
 //התחלת חלק ב של המשחק 
 // לא יקרה במקרה שיש תיקו או שהמשחק נג המחשב
