@@ -2,17 +2,7 @@
 //key code = הערך של הלחצן במקלדת שנלחץ
 // המשתנה האחרון באובייקט הזה count click keybord - הוא כמות הפעמים שלחצו על המקלדת במהלך משחק בודד בחלק הראשון (מקסימום 1 כל צד )
 //count_click_key_bord = 0  כמות הפעמים שלחצו על  המקלדת במהלך משחק אחד -כאשר שווה ל2 מחשב =מי ניצח
-const game_state_parameters = {
-    is_vs_mood: false,
-    select_left_keycode: -1,
-    select_right_keycode: -1,
-    name_left: "",
-    name_right: "",
-    is_signup_succeeded: false,
-    game_state_parameters: false,
-    count_click_key_bord: 0,
-    interval_countdown: ""
-};
+const game_state_parameters = { is_vs_mood: false, select_left_keycode: -1, select_right_keycode: -1, name_left: "", name_right: "", is_signup_succeeded: false, game_state_parameters: false, count_click_key_bord: 0, interval_countdown: "" };
 const arr_key_fight = [87, 83, 68, 74, 75, 76]; //     [87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
 
 // כתובת תמונות אימוגי =אבן/נייר/מספרים
@@ -149,10 +139,10 @@ function enter_detilasFighter(is_vs_mood) {
 window.addEventListener("keydown", function(event) {
     // this.alert(game_state_parameters.count_click_key_bord)
     // משתנה עם ערך בוליאני , אמת=המקש שלחצו במקלדת הוא חלק מהמקשים המותרת
-
-    // let fight = { side: , value: };
+    let key_value
+        // let fight = { side: , value: };
     if (game_state_parameters.is_signup_succeeded && (game_state_parameters.count_click_key_bord == 0 || game_state_parameters.count_click_key_bord == 1)) { //אם שניהם לא בחרו עדיין
-        const key_value = event.keyCode; //key value of key enter on key bord
+        key_value = event.keyCode; //key value of key enter on key bord
         arr_key_fight.map((currElement, index) => {
             is_key_code_correct(key_value, currElement, index);
         });
