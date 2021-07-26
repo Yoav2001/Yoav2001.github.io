@@ -23,3 +23,5 @@ switch (yourchoice) {
         console.log("falsedd");
         break;
 }
+
+let rndInt = Math.floor(Math.random() * 3) + 3;

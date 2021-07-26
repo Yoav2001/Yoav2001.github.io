@@ -2,7 +2,7 @@
 //key code = הערך של הלחצן במקלדת שנלחץ
 // המשתנה האחרון באובייקט הזה count click keybord - הוא כמות הפעמים שלחצו על המקלדת במהלך משחק בודד בחלק הראשון (מקסימום 1 כל צד )
 //count_click_key_bord = 0  כמות הפעמים שלחצו על  המקלדת במהלך משחק אחד -כאשר שווה ל2 מחשב =מי ניצח
-const game_state_parameters = { is_vs_mood: false, select_left_keycode: -1, select_right_keycode: -1, name_left: "", name_right: "", is_signup_succeeded: false, game_state_parameters: false, count_click_key_bord: 0, interval_countdown: "" };
+const game_state_parameters = { is_vs_mode: false, select_left_keycode: -1, select_right_keycode: -1, name_left: "", name_right: "", is_signup_succeeded: false, game_state_parameters: false, count_click_key_bord: 0, interval_countdown: "" };
 const arr_key_fight = [87, 83, 68, 74, 75, 76]; //     [87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
 
 // כתובת תמונות אימוגי =אבן/נייר/מספרים
@@ -26,8 +26,10 @@ const elem_span_count_down = document.getElementById("countDown");
 const div_count_down = document.getElementById("div_count_down");
 const countDown = { count: 5, text: "" };
 
-const btn_mood_computer = document.getElementById("btn_computer");
-const btn_mood_vs = document.getElementById("btn_vs_two");
+const btn_mode_computer = document.getElementById("btn_computer");
+const btn_mode_vs = document.getElementById("btn_vs_two");
+const btnStartOver = document.getElementById("btn_start_over");
+
 
 const img_keybord_left = document.getElementById("imgKeyBordLeft");
 const img_keybord_right = document.getElementById("imgKeyBordright");
@@ -64,14 +66,16 @@ function clear_elment() {
     elem_left.src = "";
     elem_right.src = "";
     elem_name_winner.className = "display_none"
-    btn_mood_computer.disabled = false;
-    btn_mood_vs.disabled = false;
+    btn_mode_computer.disabled = false;
+    btn_mode_vs.disabled = false;
     img_keybord_left.classList.remove("img_key_bord_left");
     img_keybord_left.classList.add("display_none");
     img_keybord_right.classList.remove("img_key_bord_right");
     img_keybord_right.classList.add("display_none");
     div_count_down.className = "display_none";
-    document.body.childNodes[0].remove(); // canvas.className = "display_none";
+
+    document.getElementsByTagName("canvas")[0].remove();
+    // document.body.childNodes[0].remove(); // canvas.className = "display_none";
     // השמה לערך התחלתי של משתנים 
     countDown.count = 5;
     elem_txt_count_down.innerHTML = "Start Fight";
@@ -81,138 +85,75 @@ function clear_elment() {
 }
 // לחיצה על כפתור מצב נגד המחשב כלומר צריך לבקש רק פרטים של שם אחד 
 //נגד המחשב 
-function computer_mood_click() {
-    game_state_parameters.is_vs_mood = false;
-    enter_detilasFighter(game_state_parameters.is_vs_mood);
+function computerPcModeClick() {
+
+    enter_detilasFighter(false);
 
     if (!game_state_parameters.is_signup_succeeded) {
         return alert("error pleade refresh the page ")
     } else {
-        game_state_parameters.name_right = "computer"
-        let rndInt = Math.floor(Math.random() * 3) + 3; //random nuber for the computer mood
-        game_state_parameters.select_right_keycode = [rndInt - 2];
+        game_state_parameters.name_right = "PC"
+        let rndInt = Math.floor(Math.random() * 3) + 3; //random nuber for the computer mode
+        game_state_parameters.select_right_keycode = [randomPcSelection()];
         game_state_parameters.count_click_key_bord = 1; //כאלו משהו לחץ
     }
 }
 
+
 // זוג -אחד נגד השני 
-function vsTwo_mood_click() {
-    // is_vs_mood = true;
-    game_state_parameters.is_vs_mood = true;
-    enter_detilasFighter(game_state_parameters.is_vs_mood);
+function vsModeClick() {
+
+    enter_detilasFighter(true);
 
     game_state_parameters.count_click_key_bord = 0;
 
 }
 
-// םעולה המקלבת את מצב המשחק נגד המחשב או אחג נגד השני
-// לפי מצב המשחק יודעת אם לבקש שם אחד או שנייים
-// או ולידציה פשוטה אם הזינו שם 
-// function enter_detilasFighter(is_vs_mood) {
-//     let text_signUp; // sign up -טקסט הודעה האם ההזנה של שמות המשתתפים למשחק הצליחה
-//     game_state_parameters.name_left = prompt(`${prompt_txt}one:`, "");
-//     game_state_parameters.name_right = "";
-//     // two fighter is_vs_mood
-//     while ((game_state_parameters.name_left == null || game_state_parameters.name_left == "")) {
-//         game_state_parameters.name_left = prompt(`${prompt_txt}one:`, "");
-//     }
+function enter_detilasFighter(isVsMode) {
+    const namePlayers = { namePlayerLeft: "", namePlayerRight = "" };
 
-//     if (is_vs_mood) {
-//         while ((game_state_parameters.name_right == null || game_state_parameters.name_right == "")) {
-//             game_state_parameters.name_right = prompt(`${prompt_txt}two:`, "");
-//         }
+    if (!isVsMode) {
+        const resNamePc = getNamesPcMode();
+        namePlayers.namePlayerLeft = resNamePc.PlayerLeftName;
+        namePlayers.namePlayerRight = resNamePc.playerRightName;
 
-//     }
-//     btn_mood_computer.disabled = true;
-//     btn_mood_vs.disabled = true;
-//     text_signUp = "let start the game ";
-//     game_state_parameters.is_signup_succeeded = true;
-//     alert(text_signUp);
+    } else {
 
+        const resNamesVs = enterDetailsVs();
+        namePlayers.namePlayerLeft = resNamesVs.PlayerLeftName;
+        namePlayers.namePlayerRight = resNamesVs.playerRightName;
 
-// }
-
-
-// function enter_detilasFighter(is_vs_mood) {
-
-//     const fightersNames = new Map();
-//     if (!is_vs_mood) {
-//         const resOneFighter = promptFighterName(`${prompt_txt}one:`)
-//         if (resOneFighter.isPromptSucceed) {
-//             fightersNames.set('nameFighterLeft', resOneFighter.nameFighter);
-//         }
-//     } else {
-
-//         const resOneFighter = promptFighterName(`${prompt_txt}one:`)
-//         const resSecondFighter = promptFighterName(`${prompt_txt}two:`)
-//         if (resOneFighter.isPromptSucceed && resSecondFighter.isPromptSucceed) {
-//             fightersNames.set('nameFighterLeft', resOneFighter.nameFighter);
-//             fightersNames.set('nameFighterRight', resSecondFighter.nameFighter);
-//         }
-//     }
-
-//     whenSignUpSucceed(fightersNames)
-
-
-// }
-
-function enter_detilasFighter(is_vs_mood) {
-
-    if (!is_vs_mood)
-        enterDetailsComputer();
-
-    else
-        enterDetailsVs();
-
-    if (game_state_parameters.select_left_keycode != "")
-        whenSignUpSucceed();
-
-}
-
-
-
-function enterDetailsComputer() {
-    const resOneFighter = promptFighterName(`${prompt_txt}one:`)
-    if (resOneFighter.isPromptSucceed) {
-        game_state_parameters.select_left_keycode = resOneFighter.nameFighter;
     }
-
-}
-
-function enterDetailsVs() {
-    const resOneFighter = promptFighterName(`${prompt_txt}one:`)
-    const resSecondFighter = promptFighterName(`${prompt_txt}two:`)
-    if (resOneFighter.isPromptSucceed || resSecondFighter.isPromptSucceed) {
-        game_state_parameters.select_left_keycode = resOneFighter.nameFighter;
-        game_state_parameters.select_right_keycode = resSecondFighter.nameFighter;
+    if (game_state_parameters.name_left != "") {
+        VisibilityAfterSignUp(isVsMode, namePlayers);
     }
-}
+    while (!isPlayerSelect()) {
 
-
-
-function promptFighterName(text_alert) {
-    const resPrompt = prompt(text_alert);
-
-    if (resPrompt === "" || resPrompt === NaN || resPrompt === null) {
-        alert("User cancelled  -please choose the mood : computer / vs  ")
-        return { nameFighter: resPrompt, isPromptSucceed: false }
-
-    } else
-        return { nameFighter: resPrompt, isPromptSucceed: true };
-
-
+    }
+    fightClickCalck(isVsMode, namePlayers);
 
 }
 
-function whenSignUpSucceed(mapNames) {
+
+
+
+function VisibilityAfterSignUp(mode, namePlayers) {
     const textSignUp = "let start the game ";
     alert(textSignUp);
-    btn_mood_computer.disabled = true;
-    btn_mood_vs.disabled = true;
+    btn_mode_computer.disabled = true;
+    btn_mode_vs.disabled = true;
     game_state_parameters.is_signup_succeeded = true;
 
 }
 
+function isPlayerSelect() {
+    const leftPlayerChoose = game_state_parameters.select_left_keycode;
+    const rightPlayerChoose = game_state_parameters.select_right_keycode;
+    if (leftPlayerChoose != -1 && rightPlayerChoose != -1)
+        return true;
+    return false;
+
+}
 // שלב א של המשחק 
 // key bord for the game
 //LISTNER-בעת חיצה על המקלדת 
@@ -263,6 +204,8 @@ function is_key_code_correct(key_value, currElement, index) {
 }
 
 
+
+
 function fightClickCalck() {
 
     let i_left; //index of the code fight left in the arr_src
@@ -300,7 +243,7 @@ function emoji_style_winner(src_left, src_right, namewinner) {
     }
 
 
-    if (!game_state_parameters.is_vs_mood) {
+    if (!game_state_parameters.is_vs_mode) {
         elem_name_winner.innerHTML = `${namewinner} winner `;
 
     }
@@ -316,7 +259,7 @@ function emoji_style_winner(src_left, src_right, namewinner) {
     elem_left.className += " emoji_left";
     elem_right.className += " emoji_right";
 
-    if (namewinner != "teko" && game_state_parameters.is_vs_mood) {
+    if (namewinner != "teko" && game_state_parameters.is_vs_mode) {
 
 
         elem_name_winner.innerHTML = `${namewinner} winner `;

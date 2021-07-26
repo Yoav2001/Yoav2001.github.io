@@ -27,3 +27,42 @@ function game(nameleft, codeleft, nameright, coderight) {
 
     }
 }
+
+function randomPcSelection() {
+    const selectComputer = Math.floor(Math.random() * 3);
+    return selectComputer + 1;
+}
+
+function promptFighterName(text_alert) {
+    const resPrompt = prompt(text_alert);
+
+    if (resPrompt === "" || resPrompt === NaN || resPrompt === null) {
+        alert("User cancelled  -please choose the mood : computer / vs  ")
+        return { nameFighter: resPrompt, isPromptSucceed: false }
+
+    } else
+        return { nameFighter: resPrompt, isPromptSucceed: true };
+}
+
+
+function getNamePcMode() {
+
+    const resLeftFighter = promptFighterName(`${prompt_txt}one:`)
+    if (resLeftFighter.isPromptSucceed) {
+        return { PlayerLeftName: resLeftFighter.nameFighter, playerRightName: "PC" }
+    }
+
+}
+
+function enterDetailsVs() {
+    const resLeftFighter = promptFighterName(`${prompt_txt}one:`)
+    if (resLeftFighter.isPromptSucceed) {
+        const resRightFighter = promptFighterName(`${prompt_txt}two:`)
+        if (resRightFighter.isPromptSucceed) {
+            return {
+                PlayerLeftName: resLeftFighter.nameFighter,
+                playerRightName: resRightFighter.nameFighter
+            }
+        }
+    }
+}
