@@ -4,7 +4,7 @@
 //count_click_key_bord = 0  כמות הפעמים שלחצו על  המקלדת במהלך משחק אחד -כאשר שווה ל2 מחשב =מי ניצח
 const game_state_parameters = { is_vs_mode: false, select_left_keycode: -1, select_right_keycode: -1, name_left: "", name_right: "", is_signup_succeeded: false, game_state_parameters: false, count_click_key_bord: 0, interval_countdown: "" };
 const arr_key_fight = [87, 83, 68, 74, 75, 76]; //     [87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
-
+const fightGameSps = new FightGame();
 // כתובת תמונות אימוגי =אבן/נייר/מספרים
 const stone_src = "../images//imagefight/stoneEmoji.png";
 const paper_src = "../images//imagefight/paperEmoji.png";

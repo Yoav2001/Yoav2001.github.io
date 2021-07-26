@@ -147,7 +147,6 @@ function game_second_part(left_comp_width, left_comp_height, right_comp_width, r
 
         if (crash_parameters.count == 0) {
             myGameArea.stop();
-
             return;
         }
         if (myGamePiece_left.crashWith(myGamePiece_right)) {
