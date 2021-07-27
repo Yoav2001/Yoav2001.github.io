@@ -3,8 +3,17 @@
 // המשתנה האחרון באובייקט הזה count click keybord - הוא כמות הפעמים שלחצו על המקלדת במהלך משחק בודד בחלק הראשון (מקסימום 1 כל צד )
 //count_click_key_bord = 0  כמות הפעמים שלחצו על  המקלדת במהלך משחק אחד -כאשר שווה ל2 מחשב =מי ניצח
 const game_state_parameters = { is_vs_mode: false, select_left_keycode: -1, select_right_keycode: -1, name_left: "", name_right: "", is_signup_succeeded: false, game_state_parameters: false, count_click_key_bord: 0, interval_countdown: "" };
+const fightGameSps = new FightGame(false, "", "", -1, -1);
+
 const arr_key_fight = [87, 83, 68, 74, 75, 76]; //     [87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
-const fightGameSps = new FightGame();
+const mapKeyBord = new Map(); //[87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
+mapKeyBord.set(87, 1);
+mapKeyBord.set(83, 2);
+mapKeyBord.set(68, 3);
+mapKeyBord.set(74, 1);
+mapKeyBord.set(75, 2);
+mapKeyBord.set(76, 3);
+
 // כתובת תמונות אימוגי =אבן/נייר/מספרים
 const stone_src = "../images//imagefight/stoneEmoji.png";
 const paper_src = "../images//imagefight/paperEmoji.png";
@@ -13,7 +22,15 @@ const scissors_src = "../images/imagefight/ScissorsEmoji.png";
 // מערך של כתובת התמונות 
 const arr_src = [stone_src, paper_src, scissors_src];
 
-const prompt_txt = "Please enter your name -fighter ";
+// לעבור לדרך הזו במקום הConst
+// import stoneSrc from "../images//imagefight/stoneEmoji.png"
+// import paperSrc from "../images//imagefight/paperEmoji.png"
+// import scissorsSrc from "../images/imagefight/ScissorsEmoji.png";
+// const mapSrc = new Map();
+
+// mapSrc.set(stoneSrc, 1);
+// mapSrc.set(paperSrc, 2);
+// mapSrc.set(scissorsSrc, 3);
 
 // אלמנטים שמשתמש בהם במהךף המשחק
 const elem_left = document.getElementById("left_img_emoji"); //left html elemt  - emoji 
@@ -46,12 +63,13 @@ const img_keybord_right = document.getElementById("imgKeyBordright");
 // ברגע שנלחץ נגיע להתחלת המשחק (בין אם זה בשלב א או ב )
 function start_over_click() {
 
-    game_state_parameters.select_left_keycode = -1;
-    game_state_parameters.select_right_keycode = -1;
-    game_state_parameters.name_left = "";
-    game_state_parameters.name_right = "";
+    fightGameSps.startOver(false, "", "", -1, -1);
+    // game_state_parameters.select_left_keycode = -1;
+    // game_state_parameters.select_right_keycode = -1;
+    // game_state_parameters.name_left = "";
+    // game_state_parameters.name_right = "";
     game_state_parameters.is_signup_succeeded = false;
-    game_state_parameters.count_click_key_bord = 0;
+    // game_state_parameters.count_click_key_bord = 0;
 
     clear_elment();
 }
@@ -86,26 +104,28 @@ function clear_elment() {
 // לחיצה על כפתור מצב נגד המחשב כלומר צריך לבקש רק פרטים של שם אחד 
 //נגד המחשב 
 function computerPcModeClick() {
-
+    fightGameSps.isVsMood = false;
     enter_detilasFighter(false);
 
     if (!game_state_parameters.is_signup_succeeded) {
         return alert("error pleade refresh the page ")
     } else {
-        game_state_parameters.name_right = "PC"
-        let rndInt = Math.floor(Math.random() * 3) + 3; //random nuber for the computer mode
-        game_state_parameters.select_right_keycode = [randomPcSelection()];
-        game_state_parameters.count_click_key_bord = 1; //כאלו משהו לחץ
+        // game_state_parameters.name_right = "PC"
+        // let rndInt = Math.floor(Math.random() * 3) + 3; //random nuber for the computer mode
+        // game_state_parameters.select_right_keycode = [randomPcSelection()];
+        fightGameSps.selectSecondFighter = [randomPcSelection()];
+
+        // game_state_parameters.count_click_key_bord = 1; //כאלו משהו לחץ
     }
 }
 
 
 // זוג -אחד נגד השני 
 function vsModeClick() {
-
+    fightGameSps.isVsMood = true;
     enter_detilasFighter(true);
 
-    game_state_parameters.count_click_key_bord = 0;
+    // game_state_parameters.count_click_key_bord = 0;
 
 }
 
@@ -124,13 +144,16 @@ function enter_detilasFighter(isVsMode) {
         namePlayers.namePlayerRight = resNamesVs.playerRightName;
 
     }
-    if (game_state_parameters.name_left != "") {
-        VisibilityAfterSignUp(isVsMode, namePlayers);
-    }
-    while (!isPlayerSelect()) {
 
+    if (fightGameSps.nameFirstFighter != "") {
+        VisibilityAfterSignUp(isVsMode, namePlayers);
+        fightGameSps.firstFighterName = namePlayers.namePlayerLeft;
+        fightGameSps.secondFighterName = namePlayers.namePlayerRight;
     }
-    fightClickCalck(isVsMode, namePlayers);
+    // while (!isPlayerSelect()) {
+
+    // }
+    // fightClickCalck(isVsMode, namePlayers);
 
 }
 
@@ -147,8 +170,8 @@ function VisibilityAfterSignUp(mode, namePlayers) {
 }
 
 function isPlayerSelect() {
-    const leftPlayerChoose = game_state_parameters.select_left_keycode;
-    const rightPlayerChoose = game_state_parameters.select_right_keycode;
+    const leftPlayerChoose = fightGameSps.firstFighterName;
+    const rightPlayerChoose = fightGameSps.secondFighterName;
     if (leftPlayerChoose != -1 && rightPlayerChoose != -1)
         return true;
     return false;
@@ -203,6 +226,16 @@ function is_key_code_correct(key_value, currElement, index) {
 
 }
 
+function checkKeyCode(keycode) {
+    if ([87, 83, 68].includes(keycode)) {
+        fightGameSps.selectFirstFighter = mapKeyBord.get(keycode);
+
+    } else if ([74, 75, 76].includes(keycode)) {
+        fightGameSps.selectSecondFighter = mapKeyBord.get(keycode);
+    }
+
+
+}
 
 
 
@@ -210,7 +243,7 @@ function fightClickCalck() {
 
     let i_left; //index of the code fight left in the arr_src
     let i_right; //index of the code fight right in the arr_src
-    const res_game = game(game_state_parameters.name_left, game_state_parameters.select_left_keycode, game_state_parameters.name_right, game_state_parameters.select_right_keycode);
+    const res_game = game(fightGameSps.nameFirstFighter, fightGameSps.selectFirstFighter, fightGameSps.nameSecondFighter, fightGameSps.selectSecondFighter);
     let name_winner = res_game.winner.name;
     if (res_game.sideWin == "left") {
         i_left = res_game.winner.chooseCode - 1;
@@ -243,7 +276,7 @@ function emoji_style_winner(src_left, src_right, namewinner) {
     }
 
 
-    if (!game_state_parameters.is_vs_mode) {
+    if (!fightGameSps.isVsMood) {
         elem_name_winner.innerHTML = `${namewinner} winner `;
 
     }
@@ -259,7 +292,7 @@ function emoji_style_winner(src_left, src_right, namewinner) {
     elem_left.className += " emoji_left";
     elem_right.className += " emoji_right";
 
-    if (namewinner != "teko" && game_state_parameters.is_vs_mode) {
+    if (namewinner != "teko" && fightGameSps.isVsMood) {
 
 
         elem_name_winner.innerHTML = `${namewinner} winner `;
@@ -277,6 +310,7 @@ function emoji_style_winner(src_left, src_right, namewinner) {
     }
 
 }
+
 
 
 //התחלת חלק ב של המשחק 
