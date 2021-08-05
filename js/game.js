@@ -168,7 +168,6 @@ function preCalckChoose(keyCode){
 
 
 function fightClickCalck() {
-    debugger;
     let i_left; //index of the code fight left in the arr_src
     let i_right; //index of the code fight right in the arr_src
     const res_game = calckGameResult(fightGameSps.firstFighterName, fightGameSps.firstFighterSelect, fightGameSps.secondFighterName, fightGameSps.secondFighterSelect);
