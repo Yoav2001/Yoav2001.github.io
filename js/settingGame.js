@@ -9,6 +9,18 @@ class FightGame {
         this.selectSecondFighter = selectSecondFighter;
     }
 
+    get firstFighterName(){
+        return this.nameFirstFighter
+    }
+    get secondFighterName(){
+        return this.nameSecondFighter
+    }
+    get firstFighterSelect(){
+        return this.selectFirstFighter
+    }
+    get secondFighterSelect(){
+        return this.selectSecondFighter
+    }
 
     set firstFighterName(nameOne) {
         this.nameFirstFighter = nameOne;
@@ -16,14 +28,14 @@ class FightGame {
     set secondFighterName(nameTwo) {
         this.nameSecondFighter = nameTwo;
     }
-
-
     set firstFighterSelect(newSelection) {
         this.selectFirstFighter = newSelection;
     }
     set secondFighterSelect(newSelection) {
         this.selectSecondFighter = newSelection;
     }
+
+     
 
     startOver(isVsMood, nameOne, nameTwo, selectFirstFighter, selectSecondFighter) {
         this.isVsMood = isVsMood;
