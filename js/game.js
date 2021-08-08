@@ -1,25 +1,15 @@
 const fightGameSps = new FightGame(false, "", "", -1, -1, false);
 const intervalObj = { funName: "", ms: 0, interval: null };
 
-
-
 // כתובת תמונות אימוגי =אבן/נייר/מספרים
-const stone_src = "../images//imagefight/stoneEmoji.png";
-const paper_src = "../images//imagefight/paperEmoji.png";
-const scissors_src = "../images/imagefight/ScissorsEmoji.png";
+const STONE_SRC = "../images//imagefight/stoneEmoji.png";
+const PAPER_SRC = "../images//imagefight/paperEmoji.png";
+const SCISSORS_SRC = "../images/imagefight/ScissorsEmoji.png";
 
-// מערך של כתובת התמונות 
-const arr_src = [stone_src, paper_src, scissors_src];
-
-// לעבור לדרך הזו במקום הConst
-// import stoneSrc from "../images//imagefight/stoneEmoji.png"
-// import paperSrc from "../images//imagefight/paperEmoji.png"
-// import scissorsSrc from "../images/imagefight/ScissorsEmoji.png";
-// const mapSrc = new Map();
-
-// mapSrc.set(stoneSrc, 1);
-// mapSrc.set(paperSrc, 2);
-// mapSrc.set(scissorsSrc, 3);
+const mapSrcByChoose = new Map();
+mapSrcByChoose.set(1, STONE_SRC);
+mapSrcByChoose.set(2, PAPER_SRC);
+mapSrcByChoose.set(3, SCISSORS_SRC);
 
 // אלמנטים שמשתמש בהם במהךף המשחק
 const imgLeftPlayerChoose = document.getElementById("left_img_emoji"); //left html elemt  - emoji 
@@ -36,18 +26,15 @@ const btnModeComputer = document.getElementById("btn_computer");
 const btnModeVs = document.getElementById("btn_vs_two");
 const btnStartOver = document.getElementById("btn_start_over");
 
-
 const imgKeybordLeft = document.getElementById("imgKeyBordLeft");
 const imgKeybordRight = document.getElementById("imgKeyBordright");
 
 //שלב א 
 
 function start_over_click() {
-    fightGameSps.startOver(false, "", "", -1, -1);
+    fightGameSps.startOver();
     clear_elment();
 }
-
-
 
 function clear_elment() {
     imgLeftPlayerChoose.className = "display_none";
@@ -55,7 +42,7 @@ function clear_elment() {
     imgLeftPlayerChoose.src = "";
     imgRightPlayerChoose.src = "";
     elemTitle.className = "display_none"
-    elemTitle = ""
+    elemTitle.innerHTML = ""
     btnModeComputer.disabled = false;
     btnModeVs.disabled = false;
     imgKeybordLeft.classList.remove("img_key_bord_left");
@@ -64,12 +51,11 @@ function clear_elment() {
     imgKeybordRight.classList.add("display_none");
     divCountDown.className = "display_none";
     elemBtnCountDown.disabled = false;
-
-    const canvasEleme = document.getElementsByTagName("canvas")[0];
-    if (canvasEleme != null)
-        canvasEleme.remove();
     countDownObj.count = 5;
     elemBtnCountDown.innerHTML = "Start Fight";
+    const canvasEleme = document.getElementsByTagName("canvas")[0];
+    if (canvasEleme !== null)
+        canvasEleme.remove();
 
     clearInterval(intervalObj.interval);
 }
@@ -77,7 +63,7 @@ function clear_elment() {
 function computerPcModeClick() {
     fightGameSps.isVsMood = false;
     enter_detilasFighter(false);
-    fightGameSps.selectSecondFighter = [randomPcSelection()];
+    fightGameSps.selectSecondFighter = randomPcSelection();
 }
 
 function vsModeClick() {
@@ -105,22 +91,19 @@ function VisibilityAfterSignUp(mode, namePlayers) {
     btnModeVs.disabled = true;
 }
 
-
-
-
 window.addEventListener("keydown", function(event) {
 
     const keyCode = event.keyCode;
     if (fightGameSps.firstFighterSelect === -1 || fightGameSps.secondFighterSelect === -1) {
-        preCalckChoose(keyCode);
+        updatePlayerChoose(keyCode);
         if (fightGameSps.firstFighterSelect !== -1 && fightGameSps.secondFighterSelect !== -1)
-            fightClickCalck();
+            calculationResultOfFirstPartGame();
     }
 });
 
 
-function preCalckChoose(keyCode) {
-    const resChoose = calckPlayerChoose(keyCode);
+function updatePlayerChoose(keyCode) {
+    const resChoose = getPlayerSideAndChooseByKeyCode(keyCode);
 
     if (resChoose.sidePlayer == "left")
         fightGameSps.selectFirstFighter = resChoose.selectPlayerValue;
@@ -129,26 +112,43 @@ function preCalckChoose(keyCode) {
         fightGameSps.selectSecondFighter = resChoose.selectPlayerValue;
 }
 
+function getPlayerSideAndChooseByKeyCode(keyCode) {
+    const mapKeyBord = new Map(); //[87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
+    mapKeyBord.set(87, 1);
+    mapKeyBord.set(83, 2);
+    mapKeyBord.set(68, 3);
+    mapKeyBord.set(74, 1);
+    mapKeyBord.set(75, 2);
+    mapKeyBord.set(76, 3);
+    const valueKeyMap = mapKeyBord.get(keyCode);
 
+    if ([87, 83, 68].includes(keyCode)) {
+        return { selectPlayerValue: valueKeyMap, sidePlayer: "left" }
 
-function fightClickCalck() {
-    let i_left; //index of the code fight left in the arr_src
-    let i_right; //index of the code fight right in the arr_src
+    } else if ([74, 75, 76].includes(keyCode)) {
+        return { selectPlayerValue: valueKeyMap, sidePlayer: "right" }
+    }
+    return { selectPlayerValue: -1, sidePlayer: "" }
+
+}
+
+function calculationResultOfFirstPartGame() {
+    let i_left;
+    let i_right;
     const res_game = calckGameResult(fightGameSps.firstFighterName, fightGameSps.firstFighterSelect, fightGameSps.secondFighterName, fightGameSps.secondFighterSelect);
     let name_winner = res_game.winner.name;
     if (res_game.sideWin == "left") {
-        i_left = res_game.winner.chooseCode - 1;
-        i_right = res_game.loser.chooseCode - 1;
+        i_left = res_game.winner.chooseCode;
+        i_right = res_game.loser.chooseCode;
         fightGameSps.isFirstPlayerIsWinner = true;
 
     } else {
-        i_right = res_game.winner.chooseCode - 1;
-        i_left = res_game.loser.chooseCode - 1;
+        i_right = res_game.winner.chooseCode;
+        i_left = res_game.loser.chooseCode;
         fightGameSps.isFirstPlayerIsWinner = false;
 
     }
-    console.log(name_winner)
-    emoji_style_winner(arr_src[i_left], arr_src[i_right], name_winner)
+    cssAfterFirstPartGame(mapSrcByChoose.get(i_left), mapSrcByChoose.get(i_right), name_winner)
 
     elem_span_count_down.style.visibility = "visible";
     elemBtnCountDown.style.visibility = "visible";
@@ -156,25 +156,19 @@ function fightClickCalck() {
 
 
 
-function emoji_style_winner(src_left, src_right, namewinner) {
-
+function cssAfterFirstPartGame(src_left, src_right, namewinner) {
+    debugger
     elemTitle.classList.remove('display_none');
-    elemTitle.className += " text_winner"; //חשוב לשים רווח בהתחלה כדי שיצליח להוסיף את ה class
-    //text winner
+    elemTitle.className += " text_winner";
     if (namewinner === "teko")
         elemTitle.innerHTML = `${namewinner} `;
 
     if (!fightGameSps.isVsMood)
         elemTitle.innerHTML = `${namewinner} winner `;
 
-
-
-
-    //src the photo
     imgLeftPlayerChoose.src = src_left;
     imgRightPlayerChoose.src = src_right;
 
-    //link the css class
     imgLeftPlayerChoose.classList.remove("display_none");
     imgRightPlayerChoose.classList.remove("display_none");
     imgLeftPlayerChoose.className += " emoji_left";
@@ -188,28 +182,20 @@ function emoji_style_winner(src_left, src_right, namewinner) {
 
 function styleElmentBeforeCanvas(namewinner) {
     elemTitle.innerHTML = `${namewinner} winner `;
-    //count down for start cnavas
     divCountDown.className = "count_down_block";
     elemBtnCountDown.style.visibility = "visible";
-    // key bord for the canvas game
     imgKeybordLeft.classList.remove("display_none");
     imgKeybordLeft.classList.add("img_key_bord_left");
-
     imgKeybordRight.classList.remove("display_none");
     imgKeybordRight.classList.add("img_key_bord_right");
 }
 
 
-//התחלת חלק ב של המשחק 
-// לא יקרה במקרה שיש תיקו או שהמשחק נג המחשב
 function start_game_canvas() {
     imgLeftPlayerChoose.className = "emoji_display_startCanvas";
     imgRightPlayerChoose.className = "emoji_display_startCanvas";
     elemBtnCountDown.disabled = true;
     intervalObj.interval = setInterval(count_down_circle, 1000);
-
-
-    // game_state_parameters.interval_countdown = setInterval(count_down_circle, 1000);
 }
 
 function count_down_circle() {
@@ -220,8 +206,6 @@ function count_down_circle() {
     } else if (countDownObj.count == 0) {
         countDownObj.text = "GO"
         elemBtnCountDown.innerHTML = countDownObj.text;
-
-
         setTimeout(() => {
             startCanvas()
         }, 1000);
@@ -232,17 +216,14 @@ function count_down_circle() {
         elem_span_count_down.style.visibility = "collapse";
     }
     countDownObj.count--;
-
 }
 
 function startCanvas() {
     if (fightGameSps.isFirstPlayerIsWinner === true) {
-        game_second_part(30, 30, 30, 30, imgLeftPlayerChoose.src, imgRightPlayerChoose.src, 1.2, 3, elemTitle, false);
+        game_second_part(30, 30, 30, 30, imgLeftPlayerChoose.src, imgRightPlayerChoose.src, 1.6, 3, elemTitle, false);
         alert(`${fightGameSps.nameFirstFighter} you need to catch ${fightGameSps.secondFighterName} 3 times  without crash the frame`)
     } else {
-
-        game_second_part(30, 30, 30, 30, imgLeftPlayerChoose.src, imgRightPlayerChoose.src, 1.2, 3, elemTitle, true);
-
+        game_second_part(30, 30, 30, 30, imgLeftPlayerChoose.src, imgRightPlayerChoose.src, 1.6, 3, elemTitle, true);
     }
 
 }

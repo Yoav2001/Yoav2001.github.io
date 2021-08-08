@@ -3,11 +3,11 @@ function randomPcSelection() {
     return selectComputer + 1;
 }
 
-function getPlayersNames(isVsMood,alertText){
-    if(!isVsMood)
+function getPlayersNames(isVsMood, alertText) {
+    if (!isVsMood)
         return getNamesPcMode(alertText)
 
-    return  getNamesVsMode(alertText);
+    return getNamesVsMode(alertText);
 }
 
 function getNamesPcMode(alertText) {
@@ -31,6 +31,7 @@ function getNamesVsMode(alertText) {
         }
     }
 }
+
 function promptFighterName(text_alert) {
     const resPrompt = prompt(text_alert);
 
@@ -42,7 +43,7 @@ function promptFighterName(text_alert) {
         return { nameFighter: resPrompt, isPromptSucceed: true };
 }
 
-function calckPlayerChoose(keyCode) {
+function getPlayerSideAndChooseByKeyCode(keyCode) {
     const mapKeyBord = new Map(); //[87, "w"],  [83, "s"], [68, "d"], [74, "j"] [75, "k"], [76, "l"]
     mapKeyBord.set(87, 1);
     mapKeyBord.set(83, 2);
@@ -50,19 +51,20 @@ function calckPlayerChoose(keyCode) {
     mapKeyBord.set(74, 1);
     mapKeyBord.set(75, 2);
     mapKeyBord.set(76, 3);
-    const valueKeyMap=mapKeyBord.get(keyCode);
+    const valueKeyMap = mapKeyBord.get(keyCode);
 
     if ([87, 83, 68].includes(keyCode)) {
-        return {selectPlayerValue:valueKeyMap,sidePlayer:"left"}
+        return { selectPlayerValue: valueKeyMap, sidePlayer: "left" }
 
     } else if ([74, 75, 76].includes(keyCode)) {
-        return {selectPlayerValue:valueKeyMap,sidePlayer:"right"}
+        return { selectPlayerValue: valueKeyMap, sidePlayer: "right" }
     }
-    return {selectPlayerValue:-1,sidePlayer:""}
+    return { selectPlayerValue: -1, sidePlayer: "" }
 
 }
+
 function calckGameResult(nameleft, codeleft, nameright, coderight) {
-    
+
     const PLAYER_LEFT = { name: nameleft, chooseCode: codeleft, iswinner: false };
     const PLAYER_RIGHT = { name: nameright, chooseCode: coderight, iswinner: false };
     const PLAYER_TEKO = { name: "teko", chooseCode: codeleft };
@@ -90,4 +92,8 @@ function calckGameResult(nameleft, codeleft, nameright, coderight) {
         return { winner: PLAYER_LEFT, loser: PLAYER_RIGHT, sideWin: "left" }
 
     }
+}
+
+function setCssClassToElment(nameClass, arrElement) {
+    arrElement.forEach(element => element.className = nameClass);
 }

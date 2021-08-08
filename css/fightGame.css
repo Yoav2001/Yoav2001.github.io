@@ -6,7 +6,7 @@ body {
     background-image: url("../images/background.gif");
     /* background-size: cover; */
     background-size: 100%;
-    background-repeat: repeat-y;
+    /* background-repeat: repeat-y; */
     background-attachment: fixed;
     height: 100%;
     width: 100%;

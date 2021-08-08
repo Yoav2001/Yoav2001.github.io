@@ -4,13 +4,6 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
     const IMAGE_RIGHT = new Image();
     IMAGE_RIGHT.src = imgSrcRight;
 
-    const ONE_COMP_WIDTH = oneCompWidth;
-    const ONE_COMP_HEIGHT = oneCompHeight;
-    const SECOND_COMP_WIDTH = secondCompWidth;
-    const SECOND_COMP_HEIGHT = secondCompHeight;
-
-    // const CANVAS_WIDTH = window.innerWidth * 0.65;
-    // const CANVAS_HEIGHT = window.innerHeight * 0.65;
     const CANVAS_WIDTH = window.innerWidth * 0.65;
     const CANVAS_HEIGHT = window.innerHeight * 0.65;
 
@@ -20,8 +13,8 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
     const SECOND_COMP_X_START = CANVAS_WIDTH * 0.9;
     const SECOND_COMP_Y_START = CANVAS_HEIGHT / 2;
 
-    const firstGamePiece = new component(ONE_COMP_WIDTH, ONE_COMP_HEIGHT, true, ONE_COMP_X_START, ONE_COMP_Y_START);
-    const secondGamePiece = new component(SECOND_COMP_WIDTH, SECOND_COMP_HEIGHT, false, SECOND_COMP_X_START, SECOND_COMP_Y_START);
+    const firstGamePiece = new component(oneCompWidth, oneCompHeight, true, ONE_COMP_X_START, ONE_COMP_Y_START);
+    const secondGamePiece = new component(secondCompWidth, secondCompHeight, false, SECOND_COMP_X_START, SECOND_COMP_Y_START);
     const VELOCITY = velocityComp;
     const crashParameters = { round: 1, is_crash: false }; //crash with canvs/each other
     const myGameArea = {
@@ -78,9 +71,6 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
             const textRound = `Round  ${round} `
             elemTitleRound.innerHTML = textRound;
         }
-
-
-
     }
 
     function component(width, height, isLeft, x, y) {
@@ -93,9 +83,9 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
 
         this.update = function() {
             ctx = myGameArea.context;
-            debugger
+
             ctx.fillRect(this.x, this.y, this.width, this.height);
-            debugger
+
             if (isLeft) {
                 if (isFirstPlayerWinner) {
                     myGameArea.context.drawImage(IMAGE_LEFT, this.x, this.y, this.width, this.height);
@@ -113,8 +103,6 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
                     myGameArea.context.drawImage(IMAGE_RIGHT, this.x, this.y, this.width, this.height);
                     ctx.fillStyle = "red";
                 }
-
-
             }
         }
 
@@ -148,31 +136,23 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
 
     function updateGameArea() {
 
-        // secondGamePiece.speedX = 0;
-        // secondGamePiece.speedY = 0;
-        // firstGamePiece.speedY = 0;
-        // firstGamePiece.speedX = 0;
-
         if (crashParameters.round == countCompCrash + 1) {
             myGameArea.stop();
             crashParameters.is_crash = false
             return;
-
         }
         if (isAllCompCanMove()) {
-            myGameArea.clear(); //חייב שהמיקום הקודם של האובייקטים ימחק 
+            myGameArea.clear();
             updateGamePieceVelocity();
 
         } else {
             crashParameters.is_crash = true;
-
         }
 
         firstGamePiece.newPos();
         firstGamePiece.update();
         secondGamePiece.newPos();
         secondGamePiece.update();
-
 
         if (crashParameters.is_crash) {
             console.log(crashParameters.round)
@@ -181,10 +161,7 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
 
             crashParameters.round++;
             restart_round();
-
-
             crashParameters.is_crash = false;
-
         }
     }
 
@@ -193,7 +170,6 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
         const secondCompCanMove = !isNotMoveAble(secondGamePiece.x, secondGamePiece.y, secondGamePiece.width, secondGamePiece.height)
         const isCompCrash = firstGamePiece.crashWith(secondGamePiece);
 
-        // console.log(`  ${oneCompCanMove} fdf${secondCompCanMove}   fdf${ isCompCrash}  `)
         if (oneCompCanMove && secondCompCanMove && !isCompCrash)
             return true;
         else
@@ -204,9 +180,6 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
     function isNotMoveAble(x_comp, y_comp, width_comp, height_comp) {
         x_comp = parseInt(x_comp);
         y_comp = parseInt(y_comp);
-        // console.log(`the comp ${0} +the cmnavas {}`)
-        // console.log((" " + x_comp + width_comp))
-
         return (x_comp === 0 || y_comp === 0 || parseInt(x_comp + width_comp) === parseInt(CANVAS_WIDTH) || parseInt(y_comp + height_comp) === parseInt(CANVAS_HEIGHT));
     }
 
@@ -222,7 +195,6 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
         const upSecondCompnnet = key(38);
         const rightSecondCompnnet = key(39);
         const downSecondCompnnet = key(40);
-
 
         if (leftOneCompnnet) {
             firstGamePiece.speedX = -VELOCITY;
