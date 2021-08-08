@@ -7,18 +7,19 @@ class FightGame {
         this.nameSecondFighter = nameTwo;
         this.selectFirstFighter = selectFirstFighter;
         this.selectSecondFighter = selectSecondFighter;
+        this.isFirstPlayerWinner = false;
     }
 
-    get firstFighterName(){
+    get firstFighterName() {
         return this.nameFirstFighter
     }
-    get secondFighterName(){
+    get secondFighterName() {
         return this.nameSecondFighter
     }
-    get firstFighterSelect(){
+    get firstFighterSelect() {
         return this.selectFirstFighter
     }
-    get secondFighterSelect(){
+    get secondFighterSelect() {
         return this.selectSecondFighter
     }
 
@@ -34,8 +35,13 @@ class FightGame {
     set secondFighterSelect(newSelection) {
         this.selectSecondFighter = newSelection;
     }
+    get isFirstPlayerIsWinner() {
+        return this.isFirstPlayerWinner;
+    }
+    set isFirstPlayerIsWinner(isPlayerOneWinner) {
+        this.isFirstPlayerWinner = isPlayerOneWinner;
+    }
 
-     
 
     startOver(isVsMood, nameOne, nameTwo, selectFirstFighter, selectSecondFighter) {
         this.isVsMood = isVsMood;
