@@ -157,7 +157,7 @@ function calculationResultOfFirstPartGame() {
 
 
 function cssAfterFirstPartGame(src_left, src_right, namewinner) {
-    debugger
+
     elemTitle.classList.remove('display_none');
     elemTitle.className += " text_winner";
     if (namewinner === "teko")
