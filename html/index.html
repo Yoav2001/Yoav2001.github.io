@@ -15,10 +15,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- rel my js and css -->
     <script src="../js/FightGame.js" defer></script>
-    <script src="../js/lastGame/gamedemo.js" defer></script>
+    <!--<script src="../js/lastGame/gamedemo.js" defer></script>
     <script src="../js/lastGame/gameCanvas.js" defer></script>
-    <script src="../js/lastGame/game.js" defer></script>
+    <script src="../js/lastGame/game.js" defer></script> -->
     <!-- <script type="module" src="../images/imagefight/"></script> -->
+
+    <script src="../js/newGame/intro.js" defer></script>
+    <script src="../js/newGame/selectionPlayerGame.js" defer></script>
+    <script src="../js/newGame/FinishFirstPart.js" defer></script>
+    <script src="../js/newGame/countDownBeforeCanvas.js" defer></script>
+    <script src="../js/newGame/secondPartGame.js" defer></script>
+    <script src="../js/newGame/main.js" defer></script>
+
 
     <link rel="stylesheet" href="../css/fightGame.css">
 
@@ -32,15 +40,15 @@
     <p id="title_fight">
     </p>
 
-    <button id="btn_computer" type="button " onclick="computerPcModeClick() ">
+    <button id="btn_computer" type="button " onclick="introGame(false) ">
         <img class="img_mood "  src="../images/mood/computer.png ">
    </button>
 
-    <button id="btn_vs_two" onclick="vsModeClick() ">
+    <button id="btn_vs_two" onclick="introGame(true) ">
        <img class="img_mood "  src="../images/mood/vsfight.png ">
   </button>
 
-    <button id="btn_start_over" onclick="start_over_click() ">
+    <button id="btn_start_over" onclick="startOverGame() ">
    <img  class="img_mood "  src="../images/startover.png ">
 </button>
     <br>
@@ -83,7 +91,7 @@
 
     <div id="divCountDown" class="count_down_none">
         <span id="spanCountDown" class="centerDisplay"></span>
-        <button id="btnCountDown" class="centerDisplay" onclick="start_game_canvas()">Start Fight</button>
+        <button id="btnCountDown" class="centerDisplay" onclick="startGameCanvas()">Start Fight</button>
     </div>
 
 </body>

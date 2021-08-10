@@ -60,8 +60,8 @@ class FightGame {
 
     calckGameResult() {
 
-        const PLAYER_LEFT = { name: nameleft, chooseCode: this.selectFirstFighter, iswinner: false };
-        const PLAYER_RIGHT = { name: nameright, chooseCode: this.selectSecondFighter, iswinner: false };
+        const PLAYER_LEFT = { name: this.nameFirstFighter, chooseCode: this.selectFirstFighter, iswinner: false };
+        const PLAYER_RIGHT = { name: this.nameSecondFighter, chooseCode: this.selectSecondFighter, iswinner: false };
         const PLAYER_TEKO = { name: "teko", chooseCode: this.selectFirstFighter };
 
         if (this.selectFirstFighter === this.selectSecondFighter) {

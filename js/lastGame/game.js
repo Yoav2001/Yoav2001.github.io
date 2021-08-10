@@ -37,6 +37,7 @@ function start_over_click() {
 }
 
 function clear_elment() {
+    debugger
     imgLeftPlayerChoose.className = "display_none";
     imgRightPlayerChoose.className = "display_none";
     imgLeftPlayerChoose.src = "";
@@ -54,7 +55,7 @@ function clear_elment() {
     countDownObj.count = 5;
     elemBtnCountDown.innerHTML = "Start Fight";
     const canvasEleme = document.getElementsByTagName("canvas")[0];
-    if (canvasEleme !== null)
+    if (canvasEleme != null) //dont put here !=== when canvas undefined its also try to remove the canvas
         canvasEleme.remove();
 
     clearInterval(intervalObj.interval);
@@ -150,8 +151,8 @@ function calculationResultOfFirstPartGame() {
     }
     cssAfterFirstPartGame(mapSrcByChoose.get(i_left), mapSrcByChoose.get(i_right), name_winner)
 
-    elem_span_count_down.style.visibility = "visible";
-    elemBtnCountDown.style.visibility = "visible";
+    // elem_span_count_down.style.visibility = "visible";
+    // elemBtnCountDown.style.visibility = "visible";
 }
 
 

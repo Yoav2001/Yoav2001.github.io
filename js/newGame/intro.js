@@ -50,6 +50,8 @@ function promptFighterName(text_alert) {
 }
 
 function VisibilityAfterSignUp() {
+    // const btnModeComputer = document.getElementById("btn_computer");
+    // const btnModeVs = document.getElementById("btn_vs_two");
 
     const textSignUp = "let start the game ";
     alert(textSignUp);

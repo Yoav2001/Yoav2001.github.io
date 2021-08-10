@@ -1,11 +1,10 @@
-function cssAfterFirstPartGame(src_left, src_right, namewinner) {
+function cssAfterFirstPartGame(src_left, src_right, namewinner, isVsMood) {
 
     elemTitle.classList.remove('display_none');
     elemTitle.className += " text_winner";
     if (namewinner === "teko")
         elemTitle.innerHTML = `${namewinner} `;
-
-    if (!fightGameSps.isVsMood)
+    else
         elemTitle.innerHTML = `${namewinner} winner `;
 
     imgLeftPlayerChoose.src = src_left;
@@ -16,10 +15,9 @@ function cssAfterFirstPartGame(src_left, src_right, namewinner) {
     imgLeftPlayerChoose.className += " emoji_left";
     imgRightPlayerChoose.className += " emoji_right";
 
-    elem_span_count_down.style.visibility = "visible";
-    elemBtnCountDown.style.visibility = "visible";
+    // elem_span_count_down.style.visibility = "visible";
+    // elemBtnCountDown.style.visibility = "visible";
 }
-
 
 
 
@@ -53,7 +51,7 @@ function clear_elment() {
     countDownObj.count = 5;
     elemBtnCountDown.innerHTML = "Start Fight";
     const canvasEleme = document.getElementsByTagName("canvas")[0];
-    if (canvasEleme !== null)
+    if (canvasEleme != null)
         canvasEleme.remove();
 
 }
