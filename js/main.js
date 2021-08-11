@@ -32,36 +32,30 @@ const imgKeybordRight = document.getElementById("imgKeyBordright");
 
 function introGame(isVsMode) {
 
-    fightGameSps.isVsMode = isVsMode;
     if (!isVsMode)
         fightGameSps.selectSecondFighter = randomPcSelection();
-
     const resNames = getPlayersNames(isVsMode, "Please enter your name -fighter ");
-    fightGameSps.firstFighterName = resNames.PlayerLeftName;
-    fightGameSps.secondFighterName = resNames.playerRightName;
+    fightGameSps.introGameSet(isVsMode, resNames.PlayerLeftName, resNames.playerRightName)
+    fightGameSps.isIntroSucceeded = true;
     VisibilityAfterSignUp();
-
     selectionPlayers()
 }
-
-
 
 function selectionPlayers() {
 
     window.addEventListener("keydown", function(event) {
-
-        const keyCode = event.keyCode;
-        if (fightGameSps.firstFighterSelect === -1 || fightGameSps.secondFighterSelect === -1) {
-            const resChoose = getPlayerSideAndChooseByKeyCode(keyCode);
-            fightGameSps.updatePlayerChoose(resChoose);
-            if (fightGameSps.firstFighterSelect !== -1 && fightGameSps.secondFighterSelect !== -1) {
-                endFirstPartGame()
+        if (fightGameSps.isIntroSucceeded) {
+            const keyCode = event.keyCode;
+            if (fightGameSps.firstFighterSelect === -1 || fightGameSps.secondFighterSelect === -1) {
+                const resChoose = getPlayerSideAndChooseByKeyCode(keyCode);
+                fightGameSps.updatePlayerChoose(resChoose);
+                if (fightGameSps.firstFighterSelect !== -1 && fightGameSps.secondFighterSelect !== -1) {
+                    endFirstPartGame()
+                }
             }
         }
     });
 }
-
-
 
 function endFirstPartGame() {
 
@@ -77,18 +71,11 @@ function endFirstPartGame() {
     } else {
         setTimeout(() => {
             startOverGame();
-        }, 3000);
+        }, 5000);
     }
 }
 
-function startOverGame() {
-    fightGameSps.startOver();
-    clear_elment();
-    clearInterval(intervalObj.interval);
-
-}
-
-function startGameCanvas() {
+function clickStartSecondPartGame() {
     imgLeftPlayerChoose.className = "emoji_display_startCanvas";
     imgRightPlayerChoose.className = "emoji_display_startCanvas";
     elemBtnCountDown.disabled = true;
@@ -114,24 +101,10 @@ function startCanvas() {
     }
 }
 
+function startOverGame() {
 
-
-
-// function updatePlayerChoose(keyCode) {
-//     const resChoose = getPlayerSideAndChooseByKeyCode(keyCode);
-
-//     if (resChoose.sidePlayer == "left")
-//         fightGameSps.selectFirstFighter = resChoose.selectPlayerValue;
-
-//     else if (resChoose.sidePlayer == "right")
-//         fightGameSps.selectSecondFighter = resChoose.selectPlayerValue;
-// }
-
-// function updateSideWin(resGameResult) {
-
-//     if (resGameResult.sideWin == "left")
-//         fightGameSps.isFirstPlayerIsWinner = true;
-//     else
-//         fightGameSps.isFirstPlayerIsWinner = false;
-
-// }
+    fightGameSps.startOver();
+    clear_elment();
+    clearInterval(intervalObj.interval);
+    fightGameSps.isIntroSucceeded = false;
+}

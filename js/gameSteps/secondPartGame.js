@@ -122,10 +122,8 @@ function game_second_part(oneCompWidth, oneCompHeight, secondCompWidth, secondCo
             const otherbottom = otherobj.y + (otherobj.height);
             let crash = true;
 
-            if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+            if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright))
                 crash = false;
-            }
-
             return crash;
         }
     }
