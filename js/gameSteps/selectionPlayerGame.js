@@ -6,7 +6,7 @@ function getPlayerSideAndChooseByKeyCode(keyCode) {
     mapKeyBord.set(74, { selectPlayerValue: 1, sidePlayer: "right" });
     mapKeyBord.set(75, { selectPlayerValue: 2, sidePlayer: "right" });
     mapKeyBord.set(76, { selectPlayerValue: 3, sidePlayer: "right" });
-
+    // ? אומר אם הוא לא מצא את הקוד במאפ
     return mapKeyBord.get(keyCode) ? mapKeyBord.get(keyCode) : { selectPlayerValue: -1, sidePlayer: "" }
 }
 
