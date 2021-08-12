@@ -108,3 +108,10 @@ function startOverGame() {
     clearInterval(intervalObj.interval);
     fightGameSps.isIntroSucceeded = false;
 }
+
+
+
+// סיימתי את המשחק -ההערות של נדב הם:
+//randomPcSelection לשנות את הפעולה שתיהיה פעולה של המחלקה 
+// לשנות את השם של ל 
+// לעשות import לקבצים שאוכל לעקוב אחרי הפעולות עם f12
